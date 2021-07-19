@@ -1,0 +1,8 @@
+{
+  "name": "rentalx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/404jv/rentalx",
+  "author": "João Victor <joaovictorramalho7@gmail.com>",
+  "license": "MIT"
+}
