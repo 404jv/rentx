@@ -82,3 +82,21 @@ ts-node-dev serve para dar o reload na aplicação toda vez que há uma atualiza
 Responda aqui
 
 Debugar é o processo de procurar errors (bugs) no código, existem ferramentas nos editores que ajudam nesse processo.
+
+> 💡 Pergunta: Para isolarmos as rotas em outros arquivos é preciso utilizar uma função do express, que função é essa? Como seria essa implementação? (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Para isso podemos importar apenas instanciar o Router de dentro do express, importamos assim:
+
+```tsx
+import { Router } from "express";
+```
+
+Com o Router importado, podemos instancia-lo em uma constantes, assim:
+
+```tsx
+const routes = Router();
+```
+
+E pronto, temos um objeto routes do express e agora e só criar as rotas necessárias.
