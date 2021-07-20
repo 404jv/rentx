@@ -8,10 +8,13 @@ const categories = [];
 categoriesRoutes.post("/", (request, response) => {
   const { name, description } = request.body;
 
-  categories.push({
+  const category = {
+    id: uuidV4(),
     name,
     description,
-  });
+  };
+
+  categories.push(category);
 
   return response.sendStatus(201);
 });
