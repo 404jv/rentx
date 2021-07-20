@@ -100,3 +100,52 @@ const routes = Router();
 ```
 
 E pronto, temos um objeto routes do express e agora e só criar as rotas necessárias.
+
+> 💡 Pergunta: Como pode ser definido um path base para uma rota e/ou middleware? Ex.: Quero que todas as rotas do arquivo `categoriesRoutes` sejam acessíveis pela rota base `/categories` (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Para isso podemos colocar o path base no middleware use do express, exemplo:
+
+```ts
+app.use(categoriesRoutes);
+```
+
+Aqui temos todas as rotado da categories como padrão "/", caso eu queira mudar para "/categories" eu preciso passar esse path como uma string no primeiro parâmetro, assim:
+
+```ts
+app.use("/categories", categoriesRoutes);
+```
+
+Pronto agora todos os recursos do categories vão estar depois do path /categories.
+
+> 💡 Pergunta: Qual a funcionalidade do `constructor` dentro de uma `class`?
+
+Responda aqui
+
+o constructor é responsável por instanciar a classe, ou seja, se eu tiver uma classe Category e eu quiser instancia-la eu preciso fazer assim:
+
+```tsx
+const objeto = new Category();
+```
+
+dentro dessa classe Category eu tenho um constructor que vai se inciar ao eu instanciar, que pode ser assim:
+
+```tsx
+constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+    }
+  }
+```
+
+esse constructor para todos os objetos dessa classe vai verificar se uuid está vindo, caso não estiver o mesmo vai criar um com a função uuidV4().
+
+
+> 💡 Pergunta: Explique os conceitos de **repositórios** e **DTO.**
+
+Responda aqui
+
+**Repositórios** é a camada responsável pela a manipulação dos dados no banco, ou seja, select, insert, update de dados acontecem na camada de repositório.
+
+DTO (data transfer object) é uma interface para representar os atributos/métodos de um determinado objeto. A importância de ter um DTO é para que outras camadas não precisam saber os dados desse objeto, com um DTO a route não vai sabe o que está sendo transferido para um repository.
