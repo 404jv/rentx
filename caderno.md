@@ -149,3 +149,11 @@ Responda aqui
 **Repositórios** é a camada responsável pela a manipulação dos dados no banco, ou seja, select, insert, update de dados acontecem na camada de repositório.
 
 DTO (data transfer object) é uma interface para representar os atributos/métodos de um determinado objeto. A importância de ter um DTO é para que outras camadas não precisam saber os dados desse objeto, com um DTO a route não vai sabe o que está sendo transferido para um repository.
+
+> 💡 Pergunta: Para que servem os **Services**? Explique também o conceito do Princípio de Responsabilidade Única (SRP).
+
+Responda aqui:
+
+Os services são responsáveis pela verificação das regras de negócios dos dados e pela manipulação dos mesmos.
+
+O SRP é o princípio que diz que uma classe/rota/método deve ter apenas uma responsabilidade, então um service de Category seria uma classe para fazer a criação, deleção, atualização, listagem de Categories, caso essa aplicação respeitasse a regra SRP a aplicação teria 4 classes, uma para criação, para deleção, atualização e listagem, ou seja, cada classe teria uma responsabilidade única.
