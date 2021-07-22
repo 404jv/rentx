@@ -5,7 +5,7 @@ interface ICreateCategoryDTO {
   description: string;
 }
 
-class categoriesRepository {
+class CategoriesRepository {
   private categories: Category[];
 
   constructor() {
@@ -35,4 +35,4 @@ class categoriesRepository {
   }
 }
 
-export { categoriesRepository };
+export { CategoriesRepository };
