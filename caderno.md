@@ -157,3 +157,9 @@ Responda aqui:
 Os services são responsáveis pela verificação das regras de negócios dos dados e pela manipulação dos mesmos.
 
 O SRP é o princípio que diz que uma classe/rota/método deve ter apenas uma responsabilidade, então um service de Category seria uma classe para fazer a criação, deleção, atualização, listagem de Categories, caso essa aplicação respeitasse a regra SRP a aplicação teria 4 classes, uma para criação, para deleção, atualização e listagem, ou seja, cada classe teria uma responsabilidade única.
+
+> 💡 Pergunta: Qual o conceito em separar a aplicação em módulos?
+
+Responda aqui
+
+Com a aplicação em módulos temos tópicos separados em pastas, por exemplo, um módulo de carro teria uma pasta cars com todo o código relacionado (repositories, services) ao tópico carro dentro desta pasta. Isso ajuda pois se colocarmos tudo em pastas generalizadas como services e repositories, teríamos muitos arquivos dependendo da aplicação, o que implicaria em perca de produtividade.
