@@ -1,4 +1,4 @@
-import { Category } from "../models/Category";
+import { Category } from "../modules/models/Category";
 
 interface ICreateCategoryDTO {
   name: string;
