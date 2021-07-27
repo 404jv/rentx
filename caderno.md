@@ -163,3 +163,11 @@ O SRP é o princípio que diz que uma classe/rota/método deve ter apenas uma re
 Responda aqui
 
 Com a aplicação em módulos temos tópicos separados em pastas, por exemplo, um módulo de carro teria uma pasta cars com todo o código relacionado (repositories, services) ao tópico carro dentro desta pasta. Isso ajuda pois se colocarmos tudo em pastas generalizadas como services e repositories, teríamos muitos arquivos dependendo da aplicação, o que implicaria em perca de produtividade.
+
+> 💡 Pergunta: Explique os conceitos de Controllers e useCases.
+
+Responda aqui
+
+Os Use Cases são todas as operações que é feita na aplicação, separadas por pastas, então uma operação de criar uma categoria seria uma pasta (CreateCategory) e dentro dessa pasta todos os services, regras de negócio e todo o código necessário para executar tal operação.
+
+Controllers recebem os dados da request, podem fazer certas verificações que não sejam regras de negócio, por exemplo, verificar se um campo obrigatório está sendo enviado. Os controller são responsáveis por passar esses dados para um service.
