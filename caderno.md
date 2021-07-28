@@ -171,3 +171,56 @@ Responda aqui
 Os Use Cases são todas as operações que é feita na aplicação, separadas por pastas, então uma operação de criar uma categoria seria uma pasta (CreateCategory) e dentro dessa pasta todos os services, regras de negócio e todo o código necessário para executar tal operação.
 
 Controllers recebem os dados da request, podem fazer certas verificações que não sejam regras de negócio, por exemplo, verificar se um campo obrigatório está sendo enviado. Os controller são responsáveis por passar esses dados para um service.
+
+> 💡 Pergunta: Explique sobre o Singleton Pattern.
+
+Responda aqui
+
+Singleton é um padrão de projeto que consiste em exportar uma instância de um Repository para toda a aplicação, isso evita que temos dois Repositories diferentes, um exemplo seria em uma listCategories instância um Repository e uma createCategory instância o mesmo Repository, ou seja, nunca a listCategories conseguira listar categories criadas, já que o repositroy usado na createCategory é uma instância diferente.
+
+> 💡 Sugestão: Documente o processo de configuração do [multer](https://github.com/expressjs/multer).
+
+Responda aqui
+
+O primeiro passo é importar o multer:
+
+```tsx
+import multer from "multer";
+```
+
+Agora é necessário criar um objeto multer com as configurações necessárias. Como queremos colocar os arquivos que serão enviados em uma pasta tmp, colocamos o local da pasta tbm no atributo dest, assim:
+
+```tsx
+const upload = multer({
+  dest: "./tmp",
+});
+```
+
+agora todos os arquivos vão ser armazenados em uma pasta raiz chamada tbm, é necessário criar a pasta antes de fazer o upload.
+
+Agora precisamos escolher a rota, no caso:
+
+```tsx
+categoriesRoutes.post("/import", (request, response) => {
+
+  return response.send();
+});
+```
+
+Com a rota criada, passa um método do upload como um middleware antes da request e response. Esse método recebe um parâmetro indicando que queremos passar nessa rota apenas um arquivo, assim:
+
+```tsx
+categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
+```
+
+Agora nosso objeto request vai ter um atributo chamado file, para pegar podemos fazer isso:
+
+```tsx
+categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
+  const { file } = request;
+
+  return response.send();
+});
+```
+
+pronto! O arquivo foi salvo na pasta dist
