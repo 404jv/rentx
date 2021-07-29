@@ -224,3 +224,72 @@ categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
 ```
 
 pronto! O arquivo foi salvo na pasta dist
+
+> 💡 Pergunta: Explique sobre o conceito de Stream. Sugestão: Documente o código criado na aula, para futuras dúvidas. (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Stream por definição é um fluxo constante de algo. Na programação isso vai ser um processo em partes, como ler um arquivo grande em pequenas partes para não exigir muito do processador de uma só vez.
+
+Para ler um arquivo CSV em modo stream, precisamos dessas duas libs:
+
+```tsx
+import csvParse from "csv-parse";
+import fs from "fs";
+```
+
+agora com os dois arquivos, vamos criar uma função chamada execute, que receba um parâmetro chamado file, do tipo `Express.Multer.File` que é justamente o tipo de arquivo que podemos receber através do `Multer`em uma rota.
+
+```tsx
+execute(file: Express.Multer.File): void {}
+```
+
+a primeira coisa que precisamos é criar um stream através do FS, o método `createReadStream`
+
+e como parâmetro passamos o path do arquivo, assim:
+
+```tsx
+execute(file: Express.Multer.File): void {
+  const stream = fs.createReadStream(file.path);
+}
+```
+
+massa, mas ainda nosso arquivo não foi lido. Ante de ler precisamos iniciar um objeto `csvParser`
+
+como o nosso arquivo é CSV precisamos de algo que vai fazer essa conversão de csv para JS. Fica assim:
+
+```tsx
+execute(file: Express.Multer.File): void {
+  const stream = fs.createReadStream(file.path);
+
+  const parseFile = csvParse();
+}
+```
+
+oks, agora temos um objeto csv que vai receber todo o arquivo csv e temos um stream para ler por partes esse arquivo, agora precisamos de fato fazer isso. Então vamos ler esse arquivo com o método pipe do objeto stream e como parâmetro o pipe recebe o destino do nosso conteúdo no arquivo csv, que advinha quem é? Exatamente o nosso objeto `parseFile` então vai ficar assim:
+
+```tsx
+execute(file: Express.Multer.File): void {
+  const stream = fs.createReadStream(file.path);
+
+  const parseFile = csvParse();
+
+  stream.pipe(parseFile);
+}
+```
+
+todo o nosso arquivo localizado no `file.path` será lido em modo stream (parte por parte) e armazenado no objeto `parseFile` Simples assim. Agora podemos manipular essas informações que foram lidas, o objeto `parseFile` tem um método chamado on, o primeiro parâmetro vai ser uma string com data e o segundo é uma callback assíncrona, essa callback tem um parâmetro que é a linha do arquivo, ou seja, podemos passar em todo o arquivo linha por linha, vamos dar um console log nessas linhas:
+
+```tsx
+execute(file: Express.Multer.File): void {
+  const stream = fs.createReadStream(file.path);
+
+  const parseFile = csvParse();
+
+  stream.pipe(parseFile);
+
+  parseFile.on("data", async (line) => {
+    console.log(line);
+  });
+}   
+```
