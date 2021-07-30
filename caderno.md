@@ -293,3 +293,73 @@ execute(file: Express.Multer.File): void {
   });
 }   
 ```
+
+> 💡 Sugestão: Documente o processo de configuração do Swagger na aplicação.
+
+Responda aqui
+
+Para as configs do swagger, o primeiro passo é instalar:
+
+```bash
+yarn add swagger-ui-express
+```
+
+para instalar as dependências:
+
+```bash
+yarn add @types/swagger-ui-express
+```
+
+Com o swagger instalado, precisamos importar o objeto `swaggerUi`:
+
+```tsx
+import swaggerUi from "swagger-ui-express";
+```
+
+Antes de usar precisamos declarar uma rota que a documentação vai ficar, no express fazemos assim:
+
+```tsx
+app.use("/api-docs")
+```
+
+Agora como segundo parâmetro passamos o método server do objeto `swaggerUi`
+
+```tsx
+app.use("/api-docs", swaggerUi.serve)
+```
+
+Agora com o server do swagger rodando, precisamos mostrar algumas configurações que é feita em um arquivo `swagger.json` dentro da pasta `src` dentro desse arquivo tem que ficar mais ou menos assim:
+
+```json
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RentalX Documatation",
+    "description": "This is an API Rent",
+    "version": "1.0.0",
+    "contact": {
+      "email": "joaovictorramalho7@gmail.com"
+    }
+  }
+}
+```
+
+O primeiro parâmetro é a versão do swagger no caso vamos utilizar a ultima, nas `infos` vão todas as configurações da nossa API, como o titulo, descrição, versão e o contato do desenvolvedor da API. Para o swagger ter acesso a essa config precisamos importa-la, assim:
+
+```tsx
+import swaggerFile from "./swagger.json";
+```
+
+Lembrando que o typescript não aceita importações `json` como padrão, para aceitar precisamos passar esse propriedade como true no `tsconfig.json`:
+
+```json
+"resolveJsonModule": true
+```
+
+Agora finalmente passamos como terceiro parâmetro, as configurações do nosso `swagger.json` ficando assim:
+
+```tsx
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+```
+
+Agora a documentação vai estar disponível na rota `/api-docs`.
