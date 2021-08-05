@@ -1,5 +1,5 @@
 {
-  "name": "rentalx",
+  "name": "rentlx",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/404jv/rentalx",
@@ -12,7 +12,10 @@
     "csv-parse": "^4.16.0",
     "express": "^4.17.1",
     "multer": "^1.4.2",
+    "pg": "^8.7.1",
+    "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.1.6",
+    "typeorm": "^0.2.36",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
