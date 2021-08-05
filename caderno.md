@@ -368,3 +368,167 @@ Agora a documentação vai estar disponível na rota `/api-docs`.
 
 Responda aqui
 O Docker usa containers que podem ser usados para separar ambientes diferentes, já que um container é um local com sistema a parte e isolado. Podemos colocar um sistema diferente em cada container através a imagem, existem várias imagens como: Ubuntu, Windows, Linux, Debian e entre outras que podem ser usadas como um sistema de um container. Algo que o Docker traz é se roda localmente sempre vai rodar em produção e outra vantagem de se utilizar Docker é que os containers dividem processamento com o sistema principal, então é mais leve.
+
+> 💡 Sugestão: Documente sobre o processo de configuração do arquivo Dockerfile, para futuras dúvidas.
+
+Responda aqui
+
+Primeiro para inciar o docker é necessário um arquivo chamado `Dockerfile` na raiz do projeto. Esse arquivo é responsável por mostrar o passo a passo para usar o container. Com o arquivo criado, precisamos mostra a imagem desse container, que no caso pode ser assim:
+
+```docker
+FROM node
+```
+
+Para mais imagens esse [site](https://hub.docker.com/search) mostra. Agora com a imagem pronta, precisamos mostrar o local em que a nossa aplicação vai colocar os arquivos necessários para roda-la:
+
+```docker
+WORKDIR /usr/app
+```
+
+Agora algo importante é fazer uma copia do atual `package.json` da nossa aplicação para o Work Dir configurado anteriormente. Para isso temos o comando `COPY` que recebe o arquivo em primeiro e depois o local onde será copiado, no caso o arquivo é `package.json` e o local é `./` a nossa raiz do Work Dir:
+
+```docker
+COPY package.json ./
+```
+
+Com o package no docker precisamos instalar as dependências do mesmo,  então para isso usamos o comando RUN. Lembrando que é melhor usar o `npm` já que o `yarn` pode não ser instalado por padrão:
+
+```docker
+RUN npm install
+```
+
+Agora com as dependências instaladas, é necessário copiar todo o código para o container, podemos fazer isso com o mesmo comando COPY usado para o `package.json` mas como parâmetro passamos . e . já que queremos copiar quase todos os arquivos para o container:
+
+```docker
+COPY . .
+```
+
+Agora usamos esse comando para escolher a porta, no caso 3333:
+
+```docker
+EXPOSE 3333
+```
+
+E esse CMD para indicar como rodar a nossa aplicação, lembrando de utilizar o `npm`  e esse CMD separa o comando em um array cada parte fica em uma posição em ordem, assim: 
+
+```docker
+CMD ["npm", "run", "dev"]
+```
+
+Por fim precisamos criar outro arquivo chamado de `.dockerignore` que funciona semelhando ao `.gitignore` porém esse faz o Docker não fazer copias desses para o container. Então coloque esses nomes:
+
+```
+node_modules
+.vscode
+.git
+```
+
+E para roda a aplicação, o primeiro parâmetro é o nome do projeto e o segundo o local do arquivo `dockerfile`:
+
+```bash
+docker build -t rentx .
+```
+
+> 💡 Sugestão: Documente o processo de configuração do arquivo `docker-compose.yml`
+
+Responda aqui
+
+A primeira parte é mostrar a versão do docker, no caso 3.7, assim:
+
+```yaml
+version: "3.7"
+```
+
+com a versão declarada, agora a configuração do nosso serviço que é feito pelo:
+
+```yaml
+services:
+```
+
+Para declara o primeiro service que é o `app` podemos fazer assim:
+
+```yaml
+services: 
+  app:
+```
+
+agora dentro do `app` passamos toda a configuração e a primeira é a a localização do `dockerfile` que vai ser o `.` já que está na pasta raiz:
+
+```yaml
+services: 
+  app:
+    build: .
+```
+
+após isso, podemos colocar o nome desse container:
+
+```yaml
+services: 
+  app:
+    build: .
+    container_name: rentx
+```
+
+e algo importante são as portas, na máquina principal queremos a `3333` e no container também a `3333` e isso pode ser feito assim:
+
+```yaml
+services: 
+  app:
+    build: .
+    container_name: rentx
+    ports: 
+      - 3333:3333
+```
+
+e por fim precisamos mostra aonde os nossos arquivos da aplicação serão guradados, no caso podemos colocar um diretório `/usr/app` fazemos assim:
+
+```yaml
+services: 
+  app:
+    build: .
+    container_name: rentx
+    ports: 
+      - 3333:3333
+    volumes: 
+      - .:/usr/app
+```
+
+> 💡 Sugestão: Liste e descreva sobre os principais comandos que são utilizados no Docker e Docker Compose.
+
+Responda aqui
+
+Esse é para listar os containers rodando:
+
+```bash
+docker-compose ps
+```
+
+Para parar o container podemos usar esse:
+
+```bash
+docker-compose stop
+```
+
+E para rodar o container:
+
+```bash
+docker-compose start
+```
+
+Para criar o container:
+
+```bash
+docker-compose up
+```
+
+Para remover o container:
+
+```bash
+docker-compose down
+```
+
+> 💡 Pergunta: Quais as diferenças entre trabalhar com o driver nativo do banco de dados, Query Builder e ORM? Explique sobre cada um deles.
+
+Responda aqui
+
+A diferença entre eles são o tamanho da abstração, o driver nativo é o mais próximo do banco, pois é necessário escreve o SQL puro, já o Query Builder tem um abstração um pouco maior, nele utilizamos funções e objetos, e por baixo do pano é feito a comunicação para o SQL, tanto é que quando utilizamos um Query Builder como o Knex precisamos instalar também o Driver nativo do banco utilizado na aplicação. Já o ORM é uma abstração maior, ele não só usa funções e objetos para comandos SQL, como ele traz as tabelas e entidades para o código, tendo tabelas sendo representadas por classes e isso traz uma legibilidade para o código muito maior.
