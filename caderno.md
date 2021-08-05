@@ -363,3 +363,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 ```
 
 Agora a documentação vai estar disponível na rota `/api-docs`.
+
+> 💡 Pergunta: O que é o Docker? Como ele nos ajuda durante o desenvolvimento? 
+
+Responda aqui
+O Docker usa containers que podem ser usados para separar ambientes diferentes, já que um container é um local com sistema a parte e isolado. Podemos colocar um sistema diferente em cada container através a imagem, existem várias imagens como: Ubuntu, Windows, Linux, Debian e entre outras que podem ser usadas como um sistema de um container. Algo que o Docker traz é se roda localmente sempre vai rodar em produção e outra vantagem de se utilizar Docker é que os containers dividem processamento com o sistema principal, então é mais leve.
