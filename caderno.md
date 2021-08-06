@@ -532,3 +532,54 @@ docker-compose down
 Responda aqui
 
 A diferença entre eles são o tamanho da abstração, o driver nativo é o mais próximo do banco, pois é necessário escreve o SQL puro, já o Query Builder tem um abstração um pouco maior, nele utilizamos funções e objetos, e por baixo do pano é feito a comunicação para o SQL, tanto é que quando utilizamos um Query Builder como o Knex precisamos instalar também o Driver nativo do banco utilizado na aplicação. Já o ORM é uma abstração maior, ele não só usa funções e objetos para comandos SQL, como ele traz as tabelas e entidades para o código, tendo tabelas sendo representadas por classes e isso traz uma legibilidade para o código muito maior.
+
+> 💡 Sugestão: Documente o processo de configuração do TypeORM no projeto, para futuras consultas. Dica: Fale sobre os pacotes instalados e arquivos criados.
+
+Responda aqui
+
+A primeira parte é instalar o `TypeORM` e o `reflect-metadata` que pode ser feito assim:
+
+```bash
+yarn add typeorm reflect-metadata
+```
+
+Após a instalação dos dois, é necessário instalar um Driver Nativo do banco escolhido na aplicação, no caso:
+
+```bash
+yarn add pg
+```
+
+Agora precisamos passar os `dacorators` no `tsconfig.json` lá no final do arquivo descomente essas duas opções:
+
+```json
+"emitDecoratorMetadata": true,
+"experimentalDecorators": true,
+```
+
+Agora na raiz do projeto é preciso criar um arquivo `ormconfig.json` com as seguintes configurações:
+
+```json
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 3306,
+  "username": "postgres",
+  "password": "test",
+  "database": "rentx",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+     "src/entity/**/*.ts"
+  ],
+  "migrations": [
+     "src/migration/**/*.ts"
+  ]
+}
+```
+
+Antes de usar é preciso importar o `reflect-metadata` em um arquivo principal, por exemplo o `server.ts` lembrando que importe na primeira linha do arquivo:
+
+```tsx
+import "reflect-metadata";
+```
+
