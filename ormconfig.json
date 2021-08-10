@@ -5,10 +5,5 @@
   "username": "postgres",
   "password": "123",
   "database": "rentx",
-  "entities": [
-     "src/entity/**/*.ts"
-  ],
-  "migrations": [
-     "src/migration/**/*.ts"
-  ]
+  "migrations": ["./src/database/migrations/*.ts"]
 }
