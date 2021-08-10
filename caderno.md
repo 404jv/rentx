@@ -583,3 +583,118 @@ Antes de usar é preciso importar o `reflect-metadata` em um arquivo principal, 
 import "reflect-metadata";
 ```
 
+> 💡 Pergunta: Qual o conceito de migrations? Como elas nos ajudam a trabalhar em equipe?
+
+Responda aqui
+
+As Migrations são os processos passo a passo da manipulação das tabelas no banco de dados, cada migration é responsável por criar, editar ou deletar, uma tabela. As migrations ajudam a manter uma produtividade maior no time, já que elas versionam as tabelas assim evitando que o time tenha a mesma tabela porém com campos diferentes.
+
+> 💡 Pergunta: Documente o passo a passo para criar uma migration, desde o comando até como devem funcionar as funções `up` e `down`.
+
+Responda aqui
+
+A primeira coisa a se fazer para criar uma migration, é configurar o cli do `typeorm`, pois é ele em que vai rodar as migrations. Para isso temos duas possibilidades baixando a cli globalmente ou baixando localmente. No caso vamos utilizar localmente já que sempre que instalarmos o `typeorm` ele vira na última versão. Agora para melhor produtividade vamos criar um script que nos leva até  cli dentro do `node_modules` assim:
+
+```json
+"typeorm": "ts-node-dev ./node_modules/typeorm/cli"
+```
+
+E antes de fato de começar a criar as migrations, é importante definir o local onde as migrations vão ficar, caso contrário ao rodar a migration, elas ficariam na raiz do projeto. Para definir um path, precisamos ir no `ormconfig.json` e colocar um objeto cli e dentro um campo `migrationDir` que recebe uma string com o path:
+
+```json
+"cli": {
+    "migrationsDir": "./src/database/migrations"
+}
+```
+
+Lembre-se de criar a pasta migrations e database. Agora vamos de fato para criação de uma migration, para isso rodamos o código abaixo:
+
+```bash
+yarn typeorm migration:create -n NOME_MIGRATION
+```
+
+Agora vai ser criado um arquivo parecido com esse `1628515148712-NOME_MIGRATION` agora dentro do arquivo existem uma classe com dois métodos o de criação e edição chamado de `up` e o que faz o oposto do `up` geralmente para deleção que é chamado `down` . Com eles vamos criar os campos na tabela,  primeiro dentro do `up` rodamos o método `createTable` do objeto `queryRunner` assim:
+
+```tsx
+await queryRunner.createTable()
+```
+
+agora dentro dele passamos um objeto com o campo name que é o nome da tabela e um array columns que serão os campos da tabela. Assim:
+
+```tsx
+await queryRunner.createTable(
+      new Table({
+        name: "NAME_TABLE",
+        columns: [
+          {
+            name: "CAMPO1",
+            type: "varchar",
+          **},
+        ],
+      })
+    );
+```
+
+Já no `down` podemos apenas dar um `dropTable` assim:
+
+```tsx
+public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable("NAME_TABLE");
+}
+```
+
+> 💡 Sugestão: Explique como pode ser feita a integração de uma Entidade com o `TypeORM`. Ex.: Fale sobre os decorators, como podemos definir uma coluna, uma chave primária e etc.
+
+Responda aqui
+
+Para criar uma entidade com `TypeORM` precisamos usar o Entity que um decorator para declarar uma entidade do banco:
+
+```tsx
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+
+@Entity("categories")
+class Category {
+```
+
+Agora com para cada atributo da classe colocamos um decorator, para a chave primária colocamos assim:
+
+```tsx
+@Entity("categories")
+class Category {
+  @PrimaryColumn()
+  id?: string;
+```
+
+Já para outros atributos normais apenas coloque o Column:
+
+```tsx
+@Entity("categories")
+class Category {
+  @PrimaryColumn()
+  id?: string;
+
+  @Column()
+  name: string;
+
+  @Column()
+  description: string;
+```
+
+Agora para atributo `created_at` existe um decorator para ele:
+
+```tsx
+@Entity("categories")
+class Category {
+  @PrimaryColumn()
+  id?: string;
+
+  @Column()
+  name: string;
+
+  @Column()
+  description: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+}
+```
