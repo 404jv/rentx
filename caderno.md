@@ -698,3 +698,9 @@ class Category {
   created_at: Date;
 }
 ```
+> 💡 Pergunta: Qual a diferença entre utilizar o `extends Repository` e o `getRepository` junto a propriedade `private` nas classes?
+
+Responda aqui
+
+`extends Repository` é usado para herdar atributos ou métodos. Já o `getRepository` é um método público para retornar apenas um repository de uma determinada entity e a propriedade private é para determinar a visibilidade de um atributo ou método.
+
