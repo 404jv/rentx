@@ -704,3 +704,8 @@ Responda aqui
 
 `extends Repository` é usado para herdar atributos ou métodos. Já o `getRepository` é um método público para retornar apenas um repository de uma determinada entity e a propriedade private é para determinar a visibilidade de um atributo ou método.
 
+> 💡 Pergunta: Como a lib `TSyringe` pode nos auxiliar com a injeção de dependências?
+
+Responda aqui
+
+A `TSyringe` é uma dependência para inserção automática de dependência, logo não precisamos se preocupara com objetos que uma determinada classe recebe, podemos fazer isso apenas uma fez e após isso a `TSyring` faz a injeção das dependências necessárias para uma determinada classe.
