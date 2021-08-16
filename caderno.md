@@ -709,3 +709,71 @@ Responda aqui
 Responda aqui
 
 A `TSyringe` é uma dependência para inserção automática de dependência, logo não precisamos se preocupara com objetos que uma determinada classe recebe, podemos fazer isso apenas uma fez e após isso a `TSyring` faz a injeção das dependências necessárias para uma determinada classe.
+
+> 💡 Explique o processo de configuração para o input de arquivo.
+
+Responda Aqui
+
+Com uma rota declarada, assim:
+
+```json
+"/categories/import": { 
+ },
+```
+
+Podemos começara o processo de receber um arquivo como input. Para isso podemos colocar o `requestBody` pode ser assim:
+
+```json
+"/categories/import": {
+	"requestBody": {}
+},
+```
+
+dentro dele colocamos o `content` e dentro do content a propriedade `multipart/form-data` que é responsável por declarar o tipo de arquivo que vai ser enviado para essa rota:
+
+```json
+"/categories/import": {
+	"requestBody": {
+    "content": {
+      "multipart/form-data": {}
+		}
+	}
+},
+```
+
+agora podemos montar o schema do body, dentro da propriedade `schema` vai o `type` que é "object" e outra propriedade dentro do schema chamada de `properies` assim:
+
+```json
+"requestBody": {
+  "content": {
+    "multipart/form-data": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "file": {}
+        }
+      }
+    }
+  }
+},
+```
+
+por fim declaramos o `type` dentro da propriedade `file` que será "string" e tem um `format` que recebe `binary` ficando assim:
+
+```json
+"requestBody": {
+  "content": {
+    "multipart/form-data": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      }
+    }
+  }
+},
+```
