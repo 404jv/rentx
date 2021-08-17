@@ -4,7 +4,7 @@ import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO";
 import { User } from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
 
-class UserRepository implements IUsersRepository {
+class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
   async create({
@@ -26,4 +26,4 @@ class UserRepository implements IUsersRepository {
   }
 }
 
-export { UserRepository };
+export { UsersRepository };
