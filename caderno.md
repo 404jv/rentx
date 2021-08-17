@@ -777,3 +777,8 @@ por fim declaramos o `type` dentro da propriedade `file` que será "string" e te
   }
 },
 ```
+> 💡 Pergunta: Como pode ser feito a remoção de uma coluna em uma tabela do banco de dados?
+
+Responda aqui
+
+Usando o `TypeORM` podemos criar uma nova migration e através do método `dropColumn` remover essa coluna, não esquecendo de cria-la dentro do método `down` já que esse método faz o oposto do `up` após isso basta rodar  a migration e a remoção da coluna no banco será realizada.
