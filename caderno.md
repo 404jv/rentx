@@ -782,3 +782,9 @@ por fim declaramos o `type` dentro da propriedade `file` que será "string" e te
 Responda aqui
 
 Usando o `TypeORM` podemos criar uma nova migration e através do método `dropColumn` remover essa coluna, não esquecendo de cria-la dentro do método `down` já que esse método faz o oposto do `up` após isso basta rodar  a migration e a remoção da coluna no banco será realizada.
+
+> 💡 Sugestão: Explique sobre a importância de criptografar a senha antes de salvar no banco de dados.
+
+Responda aqui
+
+Caso houvesse um vazamento de dados, não comprometesse tanto os dados dos usuários e seja um impedimento a mais de alguém mal intencionado acaba tendo acesso ao banco de dados.
