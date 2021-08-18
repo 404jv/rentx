@@ -788,3 +788,11 @@ Usando o `TypeORM` podemos criar uma nova migration e através do método `dropC
 Responda aqui
 
 Caso houvesse um vazamento de dados, não comprometesse tanto os dados dos usuários e seja um impedimento a mais de alguém mal intencionado acaba tendo acesso ao banco de dados.
+
+> 💡 Pergunta: Como funciona o fluxo de autenticação JWT? Quais tipos de dados **não** devemos passar no `payload`?
+
+Responda aqui
+
+O usuário passa o email e senha, verificamos os dados passados e caso estejam corretos geramos um token e retornamos. Assim para cada request que exige autenticação, o usuário usa o token dele.
+
+Não podemos passar dados críticos no `payload` como senhas ou documentos pessoais.
