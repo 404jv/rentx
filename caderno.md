@@ -796,3 +796,36 @@ Responda aqui
 O usuário passa o email e senha, verificamos os dados passados e caso estejam corretos geramos um token e retornamos. Assim para cada request que exige autenticação, o usuário usa o token dele.
 
 Não podemos passar dados críticos no `payload` como senhas ou documentos pessoais.
+
+> 💡 Explique sobre o processo para gerar o JWT do usuário.
+
+Responda aqui
+
+Para criar um token de usuário antes precisamos verificar as credencias do mesmo, um simples if para verificar se o e-mail existe já basta, como este:
+
+```tsx
+const user = await this.usersRepository.findByEmail(email);
+
+if (!user) {
+  throw new Error("Email or password incorrect!");
+}
+```
+
+Assim é para o password:
+
+```tsx
+const isValidPassword = await compare(password, user.password);
+
+if (!isValidPassword) {
+	throw new Error("Email or password incorrect!");
+}
+```
+
+Agora com todas as validações precisamos de fato gerar o token, para isso o JWT tem uma função chamada sign, onde o primeiro parâmetro é um objeto que pode ser preenchido com informações básicas como e-mail, nome ou usuário, isso facilita a vida do frontend já que com o acesso a este token é possível descriptografar e pegar essas informações, portanto não coloque dados sensíveis como passwords, documentos e etc... O segundo parâmetro é uma chave que você criar e coloca ali como uma string, o JWT vai usar a criptografia com base nessa chave, então escolha uma boa e o terceiro parâmetro é um objeto que contêm informações sobre o token, por exemplo o `subject` que é o dono desse token e o `expiresIn` que é o tempo que esse token vai durar no caso "1d" dura apenas um dia. Um exemplo de token:
+
+```tsx
+const token = sign({}, ".AGx.9JwW)FESW;~", {
+  subject: user.id,
+  expiresIn: "1d",
+});
+```
