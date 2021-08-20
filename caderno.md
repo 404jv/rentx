@@ -829,3 +829,74 @@ const token = sign({}, ".AGx.9JwW)FESW;~", {
   expiresIn: "1d",
 });
 ```
+> 💡 Pergunta: Como funciona o middleware `ensureAuthenticated`?
+
+Responda aqui
+
+Primeiro é pego o header de authorization que contêm o token:
+
+```tsx
+const authHeader = request.headers.authorization;
+```
+
+Após isso é feito uma verificação para saber se o token está vindo:
+
+```tsx
+if (!authHeader) {
+	throw new Error("Token missing");
+}
+```
+
+E então é preciso pegar a parte que vem o token de fato, já que uma autenticação Bearer é composto por duas seções "Bearer token" por exemplo `"bearer I6MTYyiIjoiYzU5NjVkMWItMTc..."`
+
+Para pegar a apenas o token:
+
+```tsx
+const [, token] = authHeader.split(" ");
+```
+
+Agora é a parte da verificação e como o verify lança um error caso o token é inválido precisamos colocar essa verificação dentro de um `try/catch` e chamar a função `verify` passando o token como primeiro parâmetro e o código que o token foi criado por segundo:
+
+```tsx
+const { sub: user_id } = verify(token, ".AGx.9JwW)FESW;~") as IPayload;
+```
+
+Como o retorno desse verify pode ser `string | (() => string)` é necessário fazer uma interface como o `IPayload` e forçar o retorno do `sub` como apenas string, o `IPayload` é assim:
+
+```tsx
+interface IPayload {
+  sub: string;
+}
+```
+
+Após a verificação é  preciso saber se o usuário com o id vindo do token realmente existe e isso é feio assim:
+
+```tsx
+const usersRepository = new UsersRepository();
+
+const user = await usersRepository.findById(user_id);
+
+if (!user) {
+  throw new Error("User does not exist!");
+}
+```
+
+Agora é só chamar a função `next()` para ir para o próximo.  E o `try/catch` fica assim:
+
+```tsx
+try {
+    const { sub: user_id } = verify(token, ".AGx.9JwW)FESW;~") as IPayload;
+
+    const usersRepository = new UsersRepository();
+
+    const user = await usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new Error("User does not exist!");
+    }
+
+    next();
+  } catch (error) {
+    throw new Error("Invalid Token");
+  }
+```
