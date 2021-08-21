@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import "express-async-errors";
 
