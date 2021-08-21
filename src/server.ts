@@ -18,20 +18,18 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(router);
 
-app.use(
-  (error: Error, request: Request, response: Response, next: NextFunction) => {
-    if (error instanceof AppError) {
-      return response.status(error.statusCode).json({
-        message: error.message,
-      });
-    }
-
-    return response.status(500).json({
-      error: "error",
-      message: `Internal server error: ${error}`,
+app.use((error: Error, request: Request, response: Response) => {
+  if (error instanceof AppError) {
+    return response.status(error.statusCode).json({
+      message: error.message,
     });
   }
-);
+
+  return response.status(500).json({
+    error: "error",
+    message: `Internal server error: ${error}`,
+  });
+});
 
 app.listen(3333, () =>
   console.log("🚀 Server is running at http://localhost:3333")
