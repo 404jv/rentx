@@ -900,3 +900,11 @@ try {
     throw new Error("Invalid Token");
   }
 ```
+
+Pergunta: Qual a importância de ter um tratamento de exceções e uma classe de erro personalizada?
+
+Sugestão: Documente a criação da classe `AppError` para futuras dúvidas.
+
+Responda aqui
+
+Podemos ter um controle maior sobre errors e conseguimos ter uma liberdade em errors customizáveis, por exemplo, se a aplicação necessitar de atributos além do `status code` e `message` então pode ser criado nesse classe própria.
