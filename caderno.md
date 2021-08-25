@@ -908,3 +908,9 @@ Sugestão: Documente a criação da classe `AppError` para futuras dúvidas.
 Responda aqui
 
 Podemos ter um controle maior sobre errors e conseguimos ter uma liberdade em errors customizáveis, por exemplo, se a aplicação necessitar de atributos além do `status code` e `message` então pode ser criado nesse classe própria.
+
+> 💡 Pergunta: Como funciona o método `stat` e `unlink` do módulo `fs`?
+
+Responda aqui
+
+O `stat` verifica se um arquivo existe com o nome do arquivo passado pelo parâmetro, já o `unlink` deleta o arquivo, cujo o nome é passado por parâmetro.
