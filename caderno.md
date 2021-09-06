@@ -914,3 +914,28 @@ Podemos ter um controle maior sobre errors e conseguimos ter uma liberdade em er
 Responda aqui
 
 O `stat` verifica se um arquivo existe com o nome do arquivo passado pelo parâmetro, já o `unlink` deleta o arquivo, cujo o nome é passado por parâmetro.
+
+> 💡 Sugestão: Explique sobre os testes unitários e testes de integração. Suas principais diferenças e qual propósito de cada um.
+
+Responda aqui
+
+O teste unitário é responsável por testar pequenas partes do nosso código, essa parte é o serviço da aplicação por exemplo um de criar usuário, especificamente o Use Case responsável por criar usuários e aplicar toda a regra de negócio. Já o teste de integração é responsável por testar o fluxo complexo da aplicação, enquanto o teste unitário foca apenas no service, o teste de integração foca desda rota, indo para o controller, serviços externos, use cases, repository e criação no banco de dados.<br />
+
+`TDD` - é uma metodologia dirigida por testes, essa metodologia consiste em escrever os testes por primeiro e depois começar a desenvolver as funcionalidades.
+
+> 💡 Pergunta: Qual a funcionalidade das funções `describe` , `it` e `toBe` ? (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+`describe` é a função que inicia um tópico de teste, por exemplo `UserRepository` Já o `it` são os testes de fato da aplicação como `Should be able to delete a user` já o `toBe` é um método que verifica se o resultado que está vindo é igual ao valor passado por parâmetro no `toBe` por exemplo, `expect(2 + 2).toBe(4);`
+
+
+> 💡 Pergunta: Em testes unitários não se deve trabalhar diretamente com o banco de dados. Como resolvemos o problema dos ***`useCases`*** que utilizam os repositórios?
+
+> 💡 Pergunta: Como funciona a função `beforeEach`? Como ela nos ajuda? (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Para fazer testes com os `useCases` é necessário criar um novo `repository` apenas para rodar os testes, no caso da aplicação é criado um repository in memory, ou seja, um repository que usa um array como banco de dados.
+
+o `beforeEach` é uma função que será executada antes dos testes acontecer, é importante para instanciar objetos necessários para o teste, como o próprio `useCase` e `repositories`.
