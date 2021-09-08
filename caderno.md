@@ -939,3 +939,31 @@ Responda aqui
 Para fazer testes com os `useCases` é necessário criar um novo `repository` apenas para rodar os testes, no caso da aplicação é criado um repository in memory, ou seja, um repository que usa um array como banco de dados.
 
 o `beforeEach` é uma função que será executada antes dos testes acontecer, é importante para instanciar objetos necessários para o teste, como o próprio `useCase` e `repositories`.
+
+> 💡 Sugestão: Ao utilizar a funcionalidade de `paths` do TypeScript, os testes executados por meio do Jest acusam erros de importação. Documente a configuração necessária no arquivo `jest.config.ts` para resolver esse problema.
+
+(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Primeiro de tudo, precisamos importar uma função e um arquivo:
+
+```tsx
+import { pathsToModuleNameMapper } from "ts-jest/utils";
+
+import { compilerOptions } from "./tsconfig.json";
+```
+
+a função `pathsToModuleNameMapper` é responsável por pegar todos os `path` e retornar um objeto contendo os `paths` da forma que `jest` entende. Para usar precisamos ir na propriedade `moduleNameMapper` e colocar a  função  `pathsToModuleNameMapper`  como valor:
+
+```json
+moduleNameMapper: pathsToModuleNameMapper(),
+```
+
+Agora o primeiro parâmetro dessa função é o array `paths` do objeto `compilerOptions` e como segundo passamos um objeto com uma chave `prefix` que recebe uma string, esta será o nome da `baseUrl` declarada anteriormente. Entretanto a string precisa ter `<rootDir>` Ficando assim:
+
+```json
+moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: "<rootDir>/src/",
+}),
+```
