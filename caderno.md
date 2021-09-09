@@ -983,3 +983,65 @@ Requisitos funcionais são todas as funcionalidades da aplicação descrita pelo
 Já os requisitos não funcionais são as regras que definem a parte técnica da aplicação como qual tecnologia será usada para fazer upload de imagens.
 
 E as regras de negócios são responsáveis por definirem como tal funcionalidade deve se comportar com determinado dado, por exemplo, "Um usuário não pode ter o mesmo email já cadastrado" ou "O aluguel de um carro deve ter duração mínima de 24 horas." e assim em diante.
+
+> 💡 Pergunta: O que é uma *Foreign Key (Chave estrangeira)?* Sugestão: Documente a configuração de uma Foreign Key dentro de uma migration para uma futura consulta.
+
+Responda aqui
+
+Uma *Foreign Key* é uma chave que vem de outra tabela, geralmente o `id` de uma outra tabela. Por exemplo uma tabela user pode ter o `id`, caso existisse uma tabela que tivesse o `id` do user poderia receber uma *Foreign Key*, chamada `user_id`.
+
+Para criar uma *Foreign Key*, na migration é necessário declarar a coluna normal dentro do `colums` por exemplo:
+
+```tsx
+columns: [
+    {
+      name: "id",
+      type: "uuid",
+      isPrimary: true,
+    },
+    {
+      name: "name",
+      type: "varchar",
+    },
+    {
+      name: "category_id", // FK
+      type: "uuid",
+      isNullable: true,
+    },
+  ],
+})
+```
+
+Com a `category_id` definida agora é preciso fazer a relação dela com a outra tabela, podemos passar um objeto `foreignKeys` logo depois, que recebe alguns parâmetro, por exemplo:
+
+```tsx
+columns: [
+    {
+      name: "id",
+      type: "uuid",
+      isPrimary: true,
+    },
+    {
+      name: "name",
+      type: "varchar",
+    },
+    {
+      name: "category_id", // FK
+      type: "uuid",
+      isNullable: true,
+    },
+  ],
+foreignKeys: [
+    {
+      name: "FKCategoryCar",
+      referencedTableName: "categories",
+      referencedColumnNames: ["id"],
+      columnNames: ["category_id"],
+      onDelete: "SET NULL",
+      onUpdate: "SET NULL",
+    },
+	],
+})
+```
+
+o `name` define o nome dessa *Foreign Key*, como padrão sempre colocamos FK no inicio depois o nome da coluna e depois o nome da tabela, já o `referencedTableName` recebe uma string com o nome da tabela de referência, bem semelhante o `referencedColumnNames` que referência a coluna no caso o `id` já o `columnNames` é o nome da coluna que vai receber esse `id` vindo da tabela `categories` o `onDelete` diz o que fazer quando alguma category for deletada, no caso ao deletar uma category nossa `FKCategoryCar` vai receber `null` e por fim o `onUpdate` que faz mesma coisa porém é ao atualizar uma category.
