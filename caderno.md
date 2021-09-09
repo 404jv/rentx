@@ -967,3 +967,19 @@ moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>/src/",
 }),
 ```
+
+> 💡 Pergunta: Qual a responsabilidade da camada de `infra`? Quais arquivos devemos colocar nesse local?
+
+Responda aqui
+
+A camada `infra` recebe todos os arquivos que possuem código de terceiro como `frameworks` tipo o `TypeOrm` ou o `Express.js`.
+
+> 💡 Explique sobre os Requisitos Funcionais (`RF`), Requisitos não Funcionais (`RNF`) e Regras de Negócio (`RN`).
+
+Responda aqui
+
+Requisitos funcionais são todas as funcionalidades da aplicação descrita pelo cliente por exemplo "Deve ser possível cadastrar um carro" ou "Deve ser possível cadastrar um usuário".
+
+Já os requisitos não funcionais são as regras que definem a parte técnica da aplicação como qual tecnologia será usada para fazer upload de imagens.
+
+E as regras de negócios são responsáveis por definirem como tal funcionalidade deve se comportar com determinado dado, por exemplo, "Um usuário não pode ter o mesmo email já cadastrado" ou "O aluguel de um carro deve ter duração mínima de 24 horas." e assim em diante.
