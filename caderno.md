@@ -1045,3 +1045,9 @@ foreignKeys: [
 ```
 
 o `name` define o nome dessa *Foreign Key*, como padrão sempre colocamos FK no inicio depois o nome da coluna e depois o nome da tabela, já o `referencedTableName` recebe uma string com o nome da tabela de referência, bem semelhante o `referencedColumnNames` que referência a coluna no caso o `id` já o `columnNames` é o nome da coluna que vai receber esse `id` vindo da tabela `categories` o `onDelete` diz o que fazer quando alguma category for deletada, no caso ao deletar uma category nossa `FKCategoryCar` vai receber `null` e por fim o `onUpdate` que faz mesma coisa porém é ao atualizar uma category.
+
+> 💡 Pergunta: Para que serve uma `seed` ? Como ela nos ajuda com a questão do usuário `admin` ?
+
+Responda aqui
+
+Seeds são usados para automatizar o processo de desenvolvimento são usados para criar entidades de teste como um usuário admin, ou seja, é um arquivo que ao ser rodado será criado no banco de dados vários exemplos que foram definidos no arquivo. No caso do usuário admin, nos ajudou pois não precisamos ficar criando o usuário na mão.
