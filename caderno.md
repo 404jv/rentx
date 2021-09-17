@@ -1051,3 +1051,9 @@ o `name` define o nome dessa *Foreign Key*, como padrão sempre colocamos FK no 
 Responda aqui
 
 Seeds são usados para automatizar o processo de desenvolvimento são usados para criar entidades de teste como um usuário admin, ou seja, é um arquivo que ao ser rodado será criado no banco de dados vários exemplos que foram definidos no arquivo. No caso do usuário admin, nos ajudou pois não precisamos ficar criando o usuário na mão.
+
+> 💡 Pergunta: Ao utilizar o `createQueryBuilder`, como funciona o `where` e `andWhere` ?
+
+Responda aqui
+
+`where` Coloca uma condição onde as os valores da tabela precisam satisfazer essa condição para ser escolhido, o `andWhere` é usado quando existe uma condição e é preciso fazer outra condição também necessária para ser satisfeita, ou seja, caso exista uma condição e precisamos de mais uma obrigatória usamos o `andWhere`.
