@@ -1057,3 +1057,56 @@ Seeds são usados para automatizar o processo de desenvolvimento são usados par
 Responda aqui
 
 `where` Coloca uma condição onde as os valores da tabela precisam satisfazer essa condição para ser escolhido, o `andWhere` é usado quando existe uma condição e é preciso fazer outra condição também necessária para ser satisfeita, ou seja, caso exista uma condição e precisamos de mais uma obrigatória usamos o `andWhere`.
+
+> 💡 Pergunta: Como podemos criar Foreign Keys fora do `new Table` ?
+
+Responda aqui
+
+podemos usar o método `createForeignKey` do objeto `queryRunner` para isso após a criação da tabela que deseja realizar a criação da FK, por exemplo:
+
+```tsx
+await queryRunner.createTable(
+      new Table({
+        name: "specifications_cars",
+        columns: [
+          {
+            name: "car_id",
+            type: "uuid",
+          },
+          {
+            name: "specification_id",
+            type: "uuid",
+          },
+        ],
+      })
+    );
+```
+
+agora podemos passar como primeiro parâmetro do método `createForeignKey` o nome da tabela 
+
+`specifications_cars` e como segundo parâmetro instanciamos a classe `TableForeignKey` passando um objeto no construtor:
+
+```tsx
+await queryRunner.createForeignKey(
+    "specifications_cars",
+    new TableForeignKey({})
+);
+```
+
+ nesse objeto tem a chave `name` que é o nome da chave estrangeira, no caso `FKSpecificationCar` tem a `referencedTableName` que é a tabela de onde vem essa chave no caso `specifications`
+
+ `referencedColumnNames` recebe um array de dos nomes da colunas que estão sendo referenciada da tabela `specifications` no caso apenas a `id` agora a `columnNames` é um array de nomes das tabelas que estão recebendo essas referencias no caso `specification_id` e por fim `onDelete` é oque é para fazer ao deletar o dado usado para referência, no caso colocar NULL e assim o `onUpdate` porém ao atualizar:
+
+```tsx
+await queryRunner.createForeignKey(
+    "specifications_cars",
+    new TableForeignKey({
+      name: "FKSpecificationCar",
+      referencedTableName: "specifications",
+      referencedColumnNames: ["id"],
+      columnNames: ["specification_id"],
+      onDelete: "SET NULL",
+      onUpdate: "SET NULL",
+    })
+  );
+```
