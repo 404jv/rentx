@@ -19,6 +19,8 @@ class SpecificationRepositoryInMemory implements ISpecificationsRepository {
       description,
     });
 
+    this.specifications.push(specification);
+
     return specification;
   }
 
