@@ -1110,3 +1110,13 @@ await queryRunner.createForeignKey(
     })
   );
 ```
+
+> 💡 Pergunta: Como funciona o decorator de relacionamento `@ManyToMany` ?
+
+Sugestão: Documente sobre as configurações necessárias para esse decorator.
+
+(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+`@ManyToMany` é para fazer uma relação de muitos para muitos, o código funciona parecido com o `@ManyToOne` porém de muitos para muitos.
