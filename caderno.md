@@ -1120,3 +1120,24 @@ Sugestão: Documente sobre as configurações necessárias para esse decorator.
 Responda aqui
 
 `@ManyToMany` é para fazer uma relação de muitos para muitos, o código funciona parecido com o `@ManyToOne` porém de muitos para muitos.
+
+
+> 💡 Pergunta: Utilizando o [multer](https://www.npmjs.com/multer), como podemos receber mais de um arquivo? Como podemos enviar esses arquivos no Insomnia (ou outro app que esteja utilizando)?
+
+Responda aqui
+
+Para receber várias imagens, podemos colocar um `middlerware` parecido com o de enviar uma foto porém ao invés do método `single` utilizamos o método `array` assim:
+
+```tsx
+carsRoutes.post(
+  "/images",
+  upload.array("images"),
+  uploadCarImagesController.handle
+);
+```
+
+Lembrando que images sendo passado como parâmetro será o nome do campo que vai ser enviado em uma requisição, por exemplo no multipart uma requisição ficaria assim:
+
+![File](https://ik.imagekit.io/dwei78ukbe/upload_DJ5Fpmse-.png)
+
+Com isso declarado no `middleware` agora a `request` tem um atributo chamado `files` que retorna o Array do tipo `Express.Multer.File` que são justamente todos os arquivos do upload.
