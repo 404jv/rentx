@@ -7,5 +7,8 @@ Os requisitos funcionais e não funcionais, junto com as regras de negócio est�
 ## 📃 Anotações
 As minhas anotações e repostas para as perguntas, estão nesse [arquivo](caderno.md).
 
+## 🎖 Milhas extras
+- [ ] Deleção de imagens de carros.
+
 ## 🔷 Diagrama
 <img src="public/diagram.png" />
