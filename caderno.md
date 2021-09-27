@@ -1141,3 +1141,9 @@ Lembrando que images sendo passado como parâmetro será o nome do campo que vai
 ![File](https://ik.imagekit.io/dwei78ukbe/upload_DJ5Fpmse-.png)
 
 Com isso declarado no `middleware` agora a `request` tem um atributo chamado `files` que retorna o Array do tipo `Express.Multer.File` que são justamente todos os arquivos do upload.
+
+> 💡 Pergunta: O que faz o seguinte código de SQL? `alter table users add primary key(id)`
+
+Responda aqui
+
+Altera a tabela `users` para transformar o `id` em uma chave primária.
