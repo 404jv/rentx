@@ -11,7 +11,7 @@ class Rental {
 
   end_date: Date;
 
-  expected_date_return: Date;
+  expected_return_date: Date;
 
   total: number;
 
