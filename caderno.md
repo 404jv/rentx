@@ -1147,3 +1147,34 @@ Com isso declarado no `middleware` agora a `request` tem um atributo chamado `fi
 Responda aqui
 
 Altera a tabela `users` para transformar o `id` em uma chave primária.
+
+> 💡 Pergunta: Como podemos utilizar o Day.js em UTC?
+
+(Exemplifique com código se achar necessário)
+
+Responda aqui:
+
+Primeiro de tudo, é necessário importar o `dayjs` e o plugin que vem instalada junto com a lib chamado `utc` importamos assim:
+
+```tsx
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+```
+
+Agora podemos pegar a data que queremos e formatar para isso podemos usar a função assim:
+
+```tsx
+const dateNow = dayjs()
+```
+
+agora com a data atual em formato `string` podemos passar a mesma para o padrão UTC usando o método `utc` assim:
+
+```tsx
+const dateNow = dayjs().utc();
+```
+
+Após isso usamos o método `local` e `format`  para formatar a data, ficando assim:
+
+```tsx
+const dateNow = dayjs().utc().local().format();
+```
