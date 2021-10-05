@@ -1178,3 +1178,89 @@ Após isso usamos o método `local` e `format`  para formatar a data, ficando as
 ```tsx
 const dateNow = dayjs().utc().local().format();
 ```
+
+> 💡 Pergunta: Como criar um *provider* de data deixa o nosso código mais organizado e escalável?
+
+Responda aqui
+
+Para fazer isso precisamos de uma classe chamada `DayjsDateProvider` importante colocar o nome da dependência já que em um futuro podemos trocar de dependência então é importante separarmos pelo próprio nome. Além disso, importante criarmos uma interface para conter os métodos que serão implementados pelas classes que terão o papel de tratar data, pro em quanto apenas a `DayjsDateProvider` a interface pode ser assim:
+
+```tsx
+interface IDateProvider {
+  compareInHours(start_date: Date, end_date: Date): number;
+  convertToUTC(date: Date): string;
+  dateNow(): Date;
+}
+
+export { IDateProvider };
+```
+
+agora classe implementa essa interface usando a dependência, no caso:
+
+```tsx
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+import { IDateProvider } from "../IDateProvider";
+
+dayjs.extend(utc);
+
+class DayjsDateProvider implements IDateProvider {
+  compareInHours(start_date: Date, end_date: Date): number {
+    const startDateUtc = this.convertToUTC(start_date);
+    const endDate = this.convertToUTC(end_date);
+
+    return dayjs(endDate).diff(startDateUtc, "hours");
+  }
+
+  convertToUTC(date: Date): string {
+    return dayjs(date).utc().local().format();
+  }
+
+  dateNow(): Date {
+    return dayjs().toDate();
+  }
+}
+
+export { DayjsDateProvider };
+```
+
+> 💡 Pergunta: Porque é importante colocar `isNullable` em algumas colunas da *migration* de `CreateRentals` ?
+
+Responda aqui
+
+Quando criamos um rental algumas colunas não serão preenchida ou seja, o valor padrão vai tem que ser `null` porém o banco de dados não permite coluna como null por padrão, então precisamos passar `isNullable` como `true`
+
+
+> 💡 Pergunta: Como a lib [supertest](https://www.npmjs.com/package/supertest) ajuda a criar os testes de integração? Quais as configurações necessárias no projeto para utilizar essa lib? (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Esta lib ajuda com as requisições que serão feitas pelos `contollers` Primeiro precisamos tirar o servidor do `app`  `express` pois o servidor é responsável apenas de subir o server com o `listen` já o `app` por configurar o servidor seja com as rotas tanto da documentação com de `controllers` e por colocar `middlewares` como o que trata `errors` jogados pelos os use cases.
+
+Para configurar precisamos importar o  `app` e o `request` do `supertest`
+
+```tsx
+import request from "supertest";
+import { app } from "@shared/infra/http/app";
+```
+
+agora criamos um teste do `jest` com o `it`:
+
+```tsx
+describe("Create category controller", () => {
+  it("test", async () => {
+
+  });
+});
+```
+
+após isso damos uma `request` do tipo `get` passando como parâmetro o `app` na rota `"/cars/available"` e um `expect` passando como parâmetro 200 pois esperamos que esta rota retorne Ok.
+
+```tsx
+describe("Create category controller", () => {
+  it("test", async () => {
+    await request(app).get("/cars/available").expect(200);
+  });
+});
+```
