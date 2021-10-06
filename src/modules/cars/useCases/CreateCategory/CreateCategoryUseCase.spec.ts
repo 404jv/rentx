@@ -7,7 +7,7 @@ let createCategoryUseCase: CreateCategoryUseCase;
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 
 describe("Create Category", () => {
-  beforeAll(() => {
+  beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
     createCategoryUseCase = new CreateCategoryUseCase(
       categoriesRepositoryInMemory
