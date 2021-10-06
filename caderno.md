@@ -1264,3 +1264,105 @@ describe("Create category controller", () => {
   });
 });
 ```
+
+> 💡 Sugestão: Documente sobre a configuração do teste para criar o usuário admin, criar o seu token e utilizá-lo nas *requests*.
+
+Responda aqui
+
+Para criar o usuários fazemos isso na callback da função `beforeAll` que é justamente a função que vai ser executada uma vez antes de tudo:
+
+```tsx
+beforeAll(async () => {
+    connection = await createConnection();
+    await connection.runMigrations();
+
+    const id = uuidV4();
+    const passwordHash = await hash("admin", 8);
+
+    await connection.query(
+      `INSERT INTO USERS(id, name, email, password, "isAdmin", created_at, driver_license)
+      VALUES('${id}', 'admin', 'admin@rentx.com.br', '${passwordHash}', true,'now()','123')`
+    );
+  });
+```
+
+Agora com o usuário admin estamos disponível  para usa-lo nas rotas que precisam, no caso para criar uma category antes precisamos estar logado, ou seja, fazemos a seção no mesmo `it` ficando assim:
+
+```tsx
+it("Should be able to create a new category", async () => {
+    const responseToken = await request(app).post("/sessions").send({
+      email: "admin@rentx.com.br",
+      password: "admin",
+    });
+
+    const { token } = responseToken.body;
+});
+```
+
+Muito simples a seção criada temos acesso ao token que é retornado no body. Agora, vamos colocar a request post na rota `categories` enviando um `name` e uma `description` assim:
+
+```tsx
+it("Should be able to create a new category", async () => {
+    const responseToken = await request(app).post("/sessions").send({
+      email: "admin@rentx.com.br",
+      password: "admin",
+    });
+
+    const { token } = responseToken.body;
+
+	const response = await request(app)
+      .post("/categories")
+      .send({
+        name: "Category Supertest",
+        description: "Category Supertest",
+  });
+});
+```
+
+Porém se rodarmos esse teste vamos receber um `statusCode` 401 pois a nossa requisição não possui um token de um admin. Para passarmos o token usamos o método `set` passando um objeto com uma chave chamada `Authorization` que recebe uma string que é justamente o nosso token, lembrando que usamos o token do tipo Bearer, ou seja, precisamos concatenar o mesmo desta forma ``Bearer ${token}`` ficando assim:
+
+```tsx
+it("Should be able to create a new category", async () => {
+    const responseToken = await request(app).post("/sessions").send({
+      email: "admin@rentx.com.br",
+      password: "admin",
+    });
+
+    const { token } = responseToken.body;
+
+    const response = await request(app)
+      .post("/categories")
+      .send({
+        name: "Category Supertest",
+        description: "Category Supertest",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+  });
+```
+
+Por fim, colocamos o que esperamos que no caso é um 201 de criado que deve estar no `statusCode` da response:
+
+```tsx
+it("Should be able to create a new category", async () => {
+    const responseToken = await request(app).post("/sessions").send({
+      email: "admin@rentx.com.br",
+      password: "admin",
+    });
+
+    const { token } = responseToken.body;
+
+    const response = await request(app)
+      .post("/categories")
+      .send({
+        name: "Category Supertest",
+        description: "Category Supertest",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    expect(response.statusCode).toBe(201);
+  });
+```
