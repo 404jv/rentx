@@ -10,7 +10,7 @@ let usersRepositoryInMemory: UsersRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 
 describe("Authenticate User", () => {
-  beforeAll(() => {
+  beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     authenticateUserUseCase = new AuthenticateUserUseCase(
       usersRepositoryInMemory
