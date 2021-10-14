@@ -2,6 +2,7 @@ import { getRepository, Repository } from "typeorm";
 
 import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
 import { IFindAvailableDTO } from "@modules/cars/dtos/IFindAvailableDTO";
+import { IUpdateAvailableDTO } from "@modules/cars/dtos/IUpdateAvailableDTO";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 
 import { Car } from "../entities/Car";
@@ -74,6 +75,20 @@ class CarsRepository implements ICarsRepository {
   }
 
   findById(id: string): Promise<Car> {
+    const car = this.repository.findOne(id);
+
+    return car;
+  }
+
+  async updateAvailable({ id, available }: IUpdateAvailableDTO): Promise<Car> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ available })
+      .where("id = :id")
+      .setParameters({ id })
+      .execute();
+
     const car = this.repository.findOne(id);
 
     return car;
