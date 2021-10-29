@@ -1366,3 +1366,26 @@ it("Should be able to create a new category", async () => {
     expect(response.statusCode).toBe(201);
   });
 ```
+
+> 💡 Pergunta: Como funciona o uso do `createQueryBuilder()` para atualizar a disponibilidade do carro?
+
+Responda aqui
+
+`createQueryBuilder()` é usado para montar uma `query` com as funções, então após o método `createQueryBuilder()` é possível usar outros métodos como `update()` `set()` `where()` e entre outros.
+
+> 💡 Pergunta: Como funciona o método `compareInDays` do provider de data?
+
+Sugestão: Explique como ficou a regra de negócio do `DevolutionRentalUseCase`.
+
+Responda aqui
+
+`compareInDays` recebe dois parâmetros `start_date` e `end_date` essas datas são convertidas para UTC e retornada a quantidade de dias que existem entre o `start_date` e o `end_date` 
+
+a RN do `DevolutionRentalUseCase` diz que uma devolução de um carro feita em menos de 24h a diária vai se cobrada por completo, além das multas caso tenham.
+
+
+> 💡 Pergunta: Porque foi preciso corrigir os métodos `findOpenRentalByCar` e `findOpenRentalByUser`?
+
+Responda aqui
+
+Os métodos como o próprio nome já diz, é para buscar carros cujo estão disponíveis para serem alugados e os carros que estavam sendo buscados eram não só os disponíveis como os não disponíveis, pois a condição passada não verificava que o `end_date` era null.
