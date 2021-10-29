@@ -4,6 +4,7 @@ interface ICreateRentalDTO {
   user_id: string;
   expected_return_date: Date;
   end_date?: string;
+  total?: number;
 }
 
 export { ICreateRentalDTO };
