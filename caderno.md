@@ -6,7 +6,7 @@ Typescript é um conjunto de tipagens feita para o Javascript pela Microsoft e m
 
 Alguns do benefício de se utilizar:
 
-- Produtuvidade maior
+- Melhor Produtividade
 - Maior legibilidade no código
 - Consigo unir o melhor dos dois mundo Tipagem + vantagens do JS
 - Consigo misturar TS com JS
@@ -1389,3 +1389,24 @@ a RN do `DevolutionRentalUseCase` diz que uma devolução de um carro feita em m
 Responda aqui
 
 Os métodos como o próprio nome já diz, é para buscar carros cujo estão disponíveis para serem alugados e os carros que estavam sendo buscados eram não só os disponíveis como os não disponíveis, pois a condição passada não verificava que o `end_date` era null.
+
+> 💡 Pergunta: Ao fazer uma busca no banco de dados, como podemos trazer os objetos de relacionamentos? Qual a configuração necessária na entidade para essa funcionalidade?
+
+Responda aqui
+
+Na entidade é necessário que criamos um atributo que será o objeto relacionado, no caso o `car` e também continuamos com o `car_id` pois é através dessa coluna que o `car` será relacionado. Para isso, passamos o decorator `@ManyToOne` com uma callback retornando a entidade `Car` que é a entidade do objeto relacionado e por fim, o decorator `@JoinColumn` passando um objeto com o `name` da coluna que será usada para relacionar, no caso `car_id` Ficando assim:
+
+```tsx
+@Entity("rentals")
+class Rental {
+  @PrimaryColumn()
+  id: string;
+
+  @ManyToOne(() => Car)
+  @JoinColumn({ name: "car_id" })
+  car: Car;
+
+  @Column()
+  car_name: string;
+}
+```
