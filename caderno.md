@@ -1410,3 +1410,55 @@ class Rental {
   car_name: string;
 }
 ```
+
+> 💡 Pergunta: Qual a configuração necessária no swagger para informar que uma rota precisa ser autenticada?
+
+(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Primeiro, criamos um `component` e dentro passamos um `securitySchemes` assim:
+
+```json
+"components": {
+    "securitySchemes": {}
+    }
+  }
+```
+
+Após isso, passamos um `bearerAuth` que o tipo de autenticação que estamos usando, e esse objeto recebe um `type` que vai ser `http` , um `scheme` que vai ser `bearer` e por fim,  um `bearerFormat` que recebe JWT. Ficando assim:
+
+```json
+"components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+```
+
+Agora toda vez que precisamos de uma rote com autenticação podemos passar o seguinte:
+
+```json
+"security": [
+  { "bearerAuth": [] }
+],
+```
+
+Como por exemplo nas rotas de criação de uma category:
+
+```json
+...
+"/categories": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Create category",
+        "description": "Create new Category",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+...
+```
