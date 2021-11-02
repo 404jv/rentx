@@ -179,6 +179,58 @@
           }
         }
       }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Create a new car",
+        "description": "Create a new car",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema":  {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "daily_rate": {
+                    "type": "number"
+                  },
+                  "license_plate": {
+                    "type": "string"
+                  },
+                  "fine_amount": {
+                    "type": "number"
+                  },
+                  "brand": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car already exists!"
+          }
+        }
+      }
     }
   },
   "components": {
