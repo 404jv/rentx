@@ -15,7 +15,9 @@
         "summary": "Create category",
         "description": "Create new Category",
         "security": [
-          { "bearerAuth": [] }
+          {
+            "bearerAuth": []
+          }
         ],
         "requestBody": {
           "content": {
@@ -78,6 +80,11 @@
         "tags": ["Category"],
         "summary": "Upload a new Category",
         "description": "Upload a new Category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -105,6 +112,11 @@
         "tags": ["Specifications"],
         "summary": "Create a specification",
         "description": "Create a new specification",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
