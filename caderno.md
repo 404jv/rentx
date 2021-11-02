@@ -1462,3 +1462,25 @@ Como por exemplo nas rotas de criação de uma category:
         ],
 ...
 ```
+
+> 💡 Pergunta: Como podemos receber um parâmetro de rota no Swagger? Qual a configuração necessária para enviar múltiplos na requisição do Swagger?
+
+(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Através da propriedade `parameters` que recebe um objeto contendo o `name` que é justamente o nome do parâmetro, o `in` que mostra por onde esse parâmetro vai vir, no caso `path` significa que vai vir da rota, o `description` que é a descrição, o `required` mostra que é um parâmetro obrigatório (por mais que todos os `params` sejam obrigatórios, é necessário passar mesmo assim para ser feita a estilização nas docs) e por fim, o `schema` que é um objeto dizendo com uma propriedade chamada `type` que diz o tipo do parâmetro. Por exemplo:
+
+```json
+"parameters": [
+  {
+    "name": "id",
+    "in": "path",
+    "description": "Car id",
+    "required": true,
+    "schema": {
+      "type": "string"
+    }
+  }
+],
+```
