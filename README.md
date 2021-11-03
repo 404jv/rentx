@@ -19,7 +19,7 @@ First of all, I used Clean Architecture, to learn some architecture that is used
 
 3. When the project is already structured is easy to implement a new feature, since everything is separated, we don’t have to worry if we are going to break something that has nothing to do with the new feature. Of course, it’s not impossible to do that but it’s not frequent as other architectures.
 
-4. If the project needs to change some dependencies, the process to do that is going to be easier, since the layers don’t affect each other. For example, in this project, I’m using dayjs to compare dates in days, hours, and so on… If the project needs to change this lib to data-fns, what I have to do is create a new class called `DatafnsDateProvider` that implements the interface IDataProvider that have all methods needed for the project, I implement those methods using data-fns, I register a singleton (in this file) for the `DatafnsDateProvider`, and then start to immigrate all the inject of DayjsDateProvider to `DatafnsDateProvider`. For example, in the CreateRentalUseCase:
+4. If the project needs to change some dependencies, the process to do that is going to be easier, since the layers don’t affect each other. For example, in this project, I’m using [dayjs](src/shared/container/providers/DateProvider/implementations/DayjsDateProvider.ts) to compare dates in days, hours, and so on… If the project needs to change this lib to [date-fns](https://github.com/date-fns/date-fns), what I have to do is create a new class called `DatefnsDateProvider` that implements the interface [IDateProvider](src/shared/container/providers/DateProvider/IDateProvider.ts) that have all methods needed for the project, I implement those methods using date-fns, I register a singleton (in this [file](src/shared/container/providers/index.ts)) for the `DatefnsDateProvider`, and then start to immigrate all the inject of DayjsDateProvider to `DatefnsDateProvider`. For example, in the CreateRentalUseCase:
 
 ```typescript
 ...
@@ -28,7 +28,7 @@ class CreateRentalUseCase {
   constructor(
     @inject("RentalsRepository")
     private rentalsRepository: IRentalsRepository,
-    @inject("DayjsDateProvider") // Here would be @inject("DatafnsDateProvider")
+    @inject("DayjsDateProvider") // Here would be like @inject("DatefnsDateProvider")
     private dateProvider: IDateProvider,
 ...
 ```
