@@ -35,7 +35,7 @@ container.registerSingleton<IDateProvider>(
 ...
 ```
 
-and then start to immigrate all the inject of DayjsDateProvider to `DatefnsDateProvider`. For example, in the CreateRentalUseCase:
+And then start to immigrate all the injections of DayjsDateProvider to `DatefnsDateProvider`. For example, in the CreateRentalUseCase:
 
 ```typescript
 ...
