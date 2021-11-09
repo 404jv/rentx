@@ -1491,3 +1491,9 @@ Através da propriedade `parameters` que recebe um objeto contendo o `name` que 
 Responda aqui
 
 Primeiro foi preciso criarmos um carro antes de fazer o teste de qualquer renta, pois agora estamos aplicando essa regra de negócio no `use case` e outra mudança foi colocar dentro do `expect` apenas o método que esperamos que algo aconteça de fato. Por fim, mudamos o método de verificação no expect, antes era o `toBeInstanceOf` e agora é `toEqual`.
+
+> 💡 Pergunta: Por qual motivo precisamos de um Refresh Token?
+
+Responda aqui
+
+Colocar um tempo longo como 1 dia ou mais, não é tão seguro. Pois, pode acontecer de acontecer um roubo ou vazamento do token de um usuário, porém colocar um tempo muito curto faz com que o usuário precise ficar se autenticando muitas vezes e claramente isso é uma péssima experiência. Então, para resolver esse problema utilizamos o Refresh Token.
