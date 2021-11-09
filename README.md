@@ -9,6 +9,7 @@ Some of my answers to questions are on this [file](caderno.md).
 
 ## 🎖 Extra mile
 - [X] Delete images of a car.
+- [ ] Fix error when create a new car with a non-existent category.
 
 ## 🔨 Architecture
 First of all, I used Clean Architecture, to learn some architecture that is used in the real world, so I don’t know a lot of architecture yet. However, I will try to explain why is Clean Architecture in this project.
