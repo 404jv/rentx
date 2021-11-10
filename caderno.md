@@ -1485,7 +1485,6 @@ Através da propriedade `parameters` que recebe um objeto contendo o `name` que 
 ],
 ```
 
-
 > 💡 Pergunta: Quais as refatorações necessárias para que os testes passem?
 
 Responda aqui
@@ -1497,3 +1496,9 @@ Primeiro foi preciso criarmos um carro antes de fazer o teste de qualquer renta,
 Responda aqui
 
 Colocar um tempo longo como 1 dia ou mais, não é tão seguro. Pois, pode acontecer de acontecer um roubo ou vazamento do token de um usuário, porém colocar um tempo muito curto faz com que o usuário precise ficar se autenticando muitas vezes e claramente isso é uma péssima experiência. Então, para resolver esse problema utilizamos o Refresh Token.
+
+> 💡 Pergunta: Por qual motivo precisamos salvar o Refresh Token no banco de dados?
+
+Responda aqui
+
+Precisamos disso, pois para gerar um novo token o refresh token precisa ser consultado e ser comparado com o refresh token vindo do usuário, caso seja valido e o refresh token não tenha expirado, então é feito um novo token.
