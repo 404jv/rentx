@@ -1,6 +1,13 @@
 # 🚗 Rentx
 API Restful to rent cars
 
+
+## ❓ Why?
+This project was created during the Rocketseat Bootcamp. Therefore, it’s for my personal portfolio, so, I really appreciate any feedback that you can give me about the project, code, architecture, design pattern, or anything else that you could report because this makes me a better developer. To help me with that, you can email me: [joaovictorramalho7@gmail.com](mailto:joaovictorramalho7@gmail.com), or connect with me on [LinkedIn](https://www.linkedin.com/in/404jv/), or even open an issue [here](https://github.com/404jv/rentx/issues/new).
+
+## 👀 Observation
+At the moment that I write this project, my current computer can’t run Docker (it’s not that bad, tho). Therefore, I won't be able to use Docker like the project developed in the Bootcamp but I still learning Docker and how it helps us.
+
 ## 🔧 Requirements
 The functions requirements and nonfunctional requirements are on this [file](func.md)
 
@@ -50,6 +57,58 @@ class CreateRentalUseCase {
 ...
 ```
 
+## 🚀 Run project
+
+**Clone Repository**
+```bash
+$ git clone https://github.com/404jv/rentx
+```
+
+**Enter directory**
+```bash
+$ cd rentx
+```
+
+**Install dependencies, if you use npm**
+```bash
+$ npm install
+```
+
+<p align="center">or<p>
+
+**Install dependencies, if you use yarn**
+```bash
+$ yarn
+```
+
+**Open `psql` and create the database**
+```sql
+$ CREATE DATABASE rentx;
+```
+
+**Then, open your bash/terminal again and run the migrations**
+```bash
+# if you use yarn
+$ yarn typeorm migration:run
+```
+<p align="center">or<p>
+
+```bash
+# if you use npm
+$ npm run typeorm migration:run
+```
+
+**Run project, if you use yarn**
+```bash
+$ yarn dev
+```
+
+<p align="center">or<p>
+
+**Run project, if you use npm**
+```bash
+$ npm run dev
+```
 
 ## 🔷 Database Diagram
 <img src="public/diagram.png" />
