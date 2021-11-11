@@ -86,6 +86,18 @@ $ yarn
 $ CREATE DATABASE rentx;
 ```
 
+**Open the file `ormconfig.json` and change the config for your database**
+```json
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "123",
+  ...
+}
+```
+
 **Then, open your bash/terminal again and run the migrations**
 ```bash
 # if you use yarn
