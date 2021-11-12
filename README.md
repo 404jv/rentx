@@ -18,6 +18,9 @@ Some of my answers to questions are on this [file](caderno.md).
 - [X] Delete images of a car.
 - [ ] Fix error when create a new car with a non-existent category.
 
+## ⚖ Restful
+
+
 ## 🔨 Architecture
 First of all, I used Clean Architecture, to learn some architecture that is used in the real world, so I don’t know a lot of architecture yet. However, I will try to explain why is Clean Architecture in this project.
 
@@ -56,6 +59,22 @@ class CreateRentalUseCase {
     private dateProvider: IDateProvider,
 ...
 ```
+it must be emphasized that this project does not follow every single detail of the Clean Architecture, so, some files are in different places. For example, the unity tests and integration tests are together on their use case:
+
+    .
+    ├── useCases...
+    │   ├── CreateCategory                        # Use Case
+    │   │   ├── CreateCategoryController.spec.ts  # Integration test
+    │   │   ├── CreateCategoryController.ts
+    │   │   ├── CreateCategoryUseCase.spec.ts     # Unit test
+    │   │   └── CreateCategoryUseCase.ts
+    │   └── ... 
+    └── ...
+
+
+I think this is better because when I see them I know that those tests are for that `CreateCategory`, and If I want to search for a specific test I know that it’s in the same folder as its use case. Furthermore, there are other details that do not follow exactly the Clean Architecture, but it’s fine because architecture like this is created to a lot of different scenarios and for some projects, it needed to adapt some things.
+
+
 
 ## 🚀 Run project
 
