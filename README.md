@@ -61,7 +61,7 @@ class CreateRentalUseCase {
 it must be emphasized that this project does not follow every single detail of the Clean Architecture, so, some files are in different places. For example, the unity tests and integration tests are together on their use case:
 
     .
-    ├── useCases...
+    ├── useCases
     │   ├── CreateCategory                        # Use Case
     │   │   ├── CreateCategoryController.spec.ts  # Integration test
     │   │   ├── CreateCategoryController.ts
