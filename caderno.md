@@ -1502,3 +1502,9 @@ Colocar um tempo longo como 1 dia ou mais, não é tão seguro. Pois, pode acont
 Responda aqui
 
 Precisamos disso, pois para gerar um novo token o refresh token precisa ser consultado e ser comparado com o refresh token vindo do usuário, caso seja valido e o refresh token não tenha expirado, então é feito um novo token.
+
+> 💡 Pergunta: Como funciona o fluxo de Refresh Token?
+
+Responda aqui
+
+Então, a aplicação recebe um `refresh token` e se for válido, é criado um novo `refresh token` e o antigo é removido e o novo é colocado no banco de dados.
