@@ -1508,3 +1508,12 @@ Precisamos disso, pois para gerar um novo token o refresh token precisa ser cons
 Responda aqui
 
 Então, a aplicação recebe um `refresh token` e se for válido, é criado um novo `refresh token` e o antigo é removido e o novo é colocado no banco de dados.
+
+> 💡 Pergunta: Como a ferramenta [Ethereal](https://ethereal.email/) nos ajuda? <br />
+Pergunta: Para que serve a lib [Nodemailer](https://nodemailer.com/about/)?
+
+Responda aqui
+
+O Ethereal é uma ferramenta que faz a configuração necessária para enviar um email, então não precisamos se preocupar com esse tipo de informação no ambiente de desenvolvimento. Ou seja, configuração de host, porta, segurança, e criar autenticação, isso tudo é gerado por esta ferramenta.
+
+Já o `Nodemailer` é a ferramente que envia de fato o email, então o assunto, o copo, o destinatário e entre outros detalhes do email, é feito no `Nodemailer`.
