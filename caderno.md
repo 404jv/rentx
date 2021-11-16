@@ -1516,7 +1516,7 @@ Responda aqui
 
 O Ethereal é uma ferramenta que faz a configuração necessária para enviar um email, então não precisamos se preocupar com esse tipo de informação no ambiente de desenvolvimento. Ou seja, configuração de host, porta, segurança, e criar autenticação, isso tudo é gerado por esta ferramenta.
 
-Já o `Nodemailer` é a ferramente que envia de fato o email, então o assunto, o copo, o destinatário e entre outros detalhes do email, é feito no `Nodemailer`.
+Já o `Nodemailer` é a ferramenta que envia de fato o email, então o assunto, o copo, o destinatário e entre outros detalhes do email, é feito no `Nodemailer`.
 
 > 💡 Sugestão: Documente sobre o processo de configuração do Provider de e-mail, para futuras consultas. (Exemplifique com código se achar necessário)
 
