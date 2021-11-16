@@ -1517,3 +1517,80 @@ Responda aqui
 O Ethereal é uma ferramenta que faz a configuração necessária para enviar um email, então não precisamos se preocupar com esse tipo de informação no ambiente de desenvolvimento. Ou seja, configuração de host, porta, segurança, e criar autenticação, isso tudo é gerado por esta ferramenta.
 
 Já o `Nodemailer` é a ferramente que envia de fato o email, então o assunto, o copo, o destinatário e entre outros detalhes do email, é feito no `Nodemailer`.
+
+> 💡 Sugestão: Documente sobre o processo de configuração do Provider de e-mail, para futuras consultas. (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Primeiro precisamos criar uma pasta dentro dos `providers` chamada de `MailProvider` dentro dessa pasta criamos o arquivo `IMailProvider` que é interface que contêm todos os métodos que as implementação vão precisar. Por enquanto, fica assim:
+
+```tsx
+import { ISendEmailDTO } from "@shared/container/dtos/ISendEmailDTO";
+
+interface IMailProvider {
+  sendMail({ body, subject, to }: ISendEmailDTO): Promise<void>;
+}
+
+export { IMailProvider };
+```
+
+Nesse arquivo eu importei um DTO que eu criei chamado `ISendEmailDTO` que está dentro do `dtos`
+
+o arquivo contêm os parâmetros de um email. O arquivo é assim:
+
+```tsx
+interface ISendEmailDTO {
+  to: string;
+  subject: string;
+  body: string;
+}
+
+export { ISendEmailDTO };
+```
+
+Finalmente é preciso implementar essa interface, para isso usamos o Ethereal, com a classe `EtherealMailProvider` criada, podemos no `constructor` fazer algumas configurações. O `nodemailer` tem um método chamada `createTestAccount()` que retorna assincronamente uma conta test, esse retorno é um objeto que precisamos passar para um outro método chamado `createTransport()` recebendo um objeto contendo o host, port, secure, `auth` que também é objeto contendo user e pass. Por fim, podemos pegar o retorno deste método e colocar em um atributo client. Ficado assim:
+
+```tsx
+...
+class EtherealMailProvider implements IMailProvider {
+  private client: Transporter;
+
+  constructor() {
+    nodemailer
+      .createTestAccount()
+      .then((account) => {
+        const transporter = nodemailer.createTransport({
+          host: account.smtp.host,
+          port: account.smtp.port,
+          secure: account.smtp.secure,
+          auth: {
+            user: account.user,
+            pass: account.pass,
+          },
+        });
+
+        this.client = transporter;
+      })
+      .catch((error) => console.error(error));
+  }
+...
+```
+
+Agora finalmente podemos implementar o método `sendMail` para isso usamos o método `sendMail` do client (criado no constructor) esse método recebe um objeto com to, from, subject, text e html. Esse método possui um retorno que é a mensagem que foi criada e podemos ter acesso ao link dela usando o método `getTestMessageUrl` e isso tudo fica assim:
+
+```tsx
+...
+async sendMail({ body, subject, to }: ISendEmailDTO): Promise<void> {
+    const message = await this.client.sendMail({
+      to,
+      from: "Rentx <noreplay@rentx.com.br>",
+      subject,
+      text: body,
+      html: body,
+    });
+
+    console.log("Message sent: ", message.messageId);
+    console.log("Preview url: ", nodemailer.getTestMessageUrl(message));
+}
+...
+```
