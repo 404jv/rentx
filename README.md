@@ -18,7 +18,13 @@ Some of my answers to questions are on this [file](caderno.md).
 - [X] Delete images of a car.
 - [ ] Fix error when create a new car with a non-existent category.
 
-<!-- ## ⚖ Restful -->
+## ⚖ Rest
+The goal of the rest is basic improve some details in a web service. There are a lot of benefits that Rest gives to us, for example, performance and reliability. Performance is one of the factors that make the users use an APP, so, the higher the speed the better, and the reliability is important to the service, since, other applications will consume the API, it’s important that clear communications between them happen.
+
+Now, about this API. It is separated from the client, the API is stateless. Therefore, every request is different from each other, for example, the route `cars/images` needs a bearer token to authenticate, and so if a user does two requests to this route, both requests must have the user’s token. 
+
+The Uniform Interface is applied here, in all the routes, messages, and resources, I tried to make it more clear possible. So, when the token was not sent in a request, the error is `“Token missing”` and the status code is 401, also, some routes are self-explanatory, for example, the route to upload an avatar is `users/avatar`, and the methods HTTP is used to describe the communication as well. The route to list categories (“categories/”) is a GET because I just want to retrieve data about the resource (categories) and the route to create a category is a POST. 
+
 
 ## 🔨 Architecture
 First of all, I used Clean Architecture, to learn some architecture that is used in the real world, so I don’t know a lot of architecture yet. However, I will try to explain why is Clean Architecture in this project.
@@ -70,7 +76,7 @@ it must be emphasized that this project does not follow every single detail of t
     │   └── ... 
     └── ...
 
-I think this is better because when I see them I know that those tests are for `CreateCategory`, and If I want to search for a specific test I know that it’s in the same folder as its use case. Furthermore, there are other details that do not follow exactly the Clean Architecture, but it’s fine because architecture like this is created to a lot of different scenarios and for some projects, it need to adapt some things.
+I think this is better because when I see them I know that those tests are for `CreateCategory`, and If I want to search for a specific test I know that it’s in the same folder as its use case. Furthermore, there are other details that do not follow exactly the Clean Architecture, but it’s fine because architecture like this is created for a lot of different scenarios, and for some projects, it needs to adapt some things.
 
 ## 🚀 Run project
 
