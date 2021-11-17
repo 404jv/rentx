@@ -3,10 +3,10 @@ API Restful to rent cars
 
 
 ## ❓ Why?
-This project was created during the Rocketseat Bootcamp. Therefore, it’s for my personal portfolio, so, I really appreciate any feedback that you can give me about the project, code, architecture, design pattern, or anything else that you could report because this makes me a better developer. To help me with that, you can email me: [joaovictorramalho7@gmail.com](mailto:joaovictorramalho7@gmail.com), or connect with me on [LinkedIn](https://www.linkedin.com/in/404jv/), or even open an issue [here](https://github.com/404jv/rentx/issues/new).
+This project was created during the Rocketseat Bootcamp. Therefore, it’s for my portfolio, so, I really appreciate any feedback that you can give me about the project, code, architecture, design pattern, or anything else that you could report because this makes me a better developer. To help me with that, you can email me: [joaovictorramalho7@gmail.com](mailto:joaovictorramalho7@gmail.com), or connect with me on [LinkedIn](https://www.linkedin.com/in/404jv/), or even open an issue [here](https://github.com/404jv/rentx/issues/new).
 
 ## 👀 Observation
-At the moment that I write this project, my current computer can’t run Docker (it’s not that bad, tho). Therefore, I won't be able to use Docker like the project developed in the Bootcamp but I still learning Docker and how it helps us.
+At the moment that I write this project, my current computer can’t run Docker (it’s not that bad, tho). Because of this, I won't be able to use Docker like the project developed in the Bootcamp but I still learning Docker and how it helps us.
 
 ## 🔧 Requirements
 The functions requirements and nonfunctional requirements are on this [file](func.md)
@@ -32,7 +32,7 @@ First of all, I used Clean Architecture, to learn some architecture that is used
 
 1. The code is more testable than other architectures like MVC (Model - View - Controller).
 
-2. The project is separated into layers that have one purpose. Therefore, it’s easy to navigate between them, and if I have something to do with the database, I know that I have to go to the Data Layer, or if I have to fix some business rule, I go to the Use Case layer, and so on…
+2. The project is separated into layers that have one purpose. Consequently, it’s easy to navigate between them, and if I have something to do with the database, I know that I have to go to the Data Layer, or if I have to fix some business rule, I go to the Use Case layer, and so on…
 
 3. When the project is already structured is easy to implement a new feature, since everything is separated, we don’t have to worry if we are going to break something that has nothing to do with the new feature. Of course, it’s not impossible to do that but it’s not frequent as other architectures.
 
