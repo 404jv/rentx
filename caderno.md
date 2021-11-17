@@ -1594,3 +1594,75 @@ async sendMail({ body, subject, to }: ISendEmailDTO): Promise<void> {
 }
 ...
 ```
+
+> 💡 Pergunta: O que é Template Engine? <br />
+Sugestão: Documente sobre o processo para configurar e utilizar o [Handlebars](https://handlebarsjs.com/) como template engine dos emails.<br />
+(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Template Engine é o como o próprio nome já diz, um template que vai ser usado para vários usuários na mesma situação, como, um usuário que quer receber um e-mail para trocar a senha. Assim, as informações de usuário mudam e a mensagem continua a mesma.
+
+O primeiro passa para o usar o `Handlebars` é instalar:
+
+```bash
+$ yarn add handlebars
+```
+
+Depois, é podemos importar no arquivo que vamos utilizar:
+
+```tsx
+import handlebars from "handlebars";
+```
+
+E claro antes temos que ter o arquivo `.hbs` já pronto, no caso estou usando esse:
+
+```html
+<style>
+  .container {
+    width: 800px;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  span {
+    margin: 10px;
+  }
+</style>
+
+<div class="container">
+  <img src="https://i.imgur.com/oUAKMC5.png" />
+  <span>Oi, {{ name }}</span>
+
+  <br />
+
+  <span>Você solicitou uma troca de senha.</span>
+  <span>Para realizar a troca, clique no link: 
+    <a href={{ link }}>{{ link }}</a>
+  </span>
+
+  <span>Caso você não tenha feito isso, basta ignorar este e-mail.</span>
+
+  <h3>Equipe | <strong>Rentx</strong></h3>
+</div>
+```
+
+Com o template montado podemos voltar no arquivo e importar usando o método `readFileSync` do `fs`  passando como parâmetro o path do arquivo e depois usando o método `toString` passado como parâmetro `"utf-8"` isso tudo vai pegar todo o conteúdo que o arquivo tem e aceitar o `utf-8`, isso tudo ficando assim:
+
+```tsx
+const templateFileContent = fs.readFileSync(path).toString("utf-8");
+```
+
+agora com o arquivo podemos compilar esse arquivo utilizando o método `compile` do `handlebars` e isso retorna uma função:
+
+```tsx
+const templateParseFunction = handlebars.compile(templateFileContent);
+```
+
+com essa função podemos usar passando como parâmetro as variáveis que o template tem isso tudo em um objeto e o retorno vai ser o HTML já montado e estático. Ficando assim:
+
+```tsx
+const templateHTML = templateParseFunction(variables);
+```
