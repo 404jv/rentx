@@ -77,7 +77,7 @@ it must be emphasized that this project does not follow every single detail of t
     │   └── ... 
     └── ...
 
-I think this is better because when I see them I know that those tests are for `CreateCategory`, and If I want to search for a specific test I know that it’s in the same folder as its use case. Furthermore, there are other details that do not follow exactly the Clean Architecture, but it’s fine because architecture like this is created for a lot of different scenarios, and for some projects, it needs to adapt some things.
+I think this is better because when I see them I know that those tests are for `CreateCategory`, and If I want to search for a specific test I know that it’s in the same folder as its use case. Furthermore, other details that do not follow exactly the Clean Architecture, but it’s fine because architecture like this is created for a lot of different scenarios, and for some projects, it needs to adapt some things.
 
 ## 🚀 Run project
 
