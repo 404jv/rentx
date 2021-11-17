@@ -25,7 +25,7 @@ Now, about this API. It is separated from the client, the API is stateless. Ther
 
 The Uniform Interface is applied here, in all the routes, messages, and resources, I tried to make it more clear possible. So, when the token was not sent in a request, the error is `“Token missing”` and the status code is 401, also, some routes are self-explanatory, for example, the route to upload an avatar is `users/avatar`, and the methods HTTP is used to describe the communication as well. The route to list categories (“categories/”) is a GET because I just want to retrieve data about the resource (categories) and the route to create a category is a POST. 
 
-I’m sure there are some details that Rest has and this API does not follow or even more, some break of the Rest’s rules. That’s because I’m not familiar with it, and my ignorance around this topic doesn’t let me correct it. Of course, I always will correct the mistakes, so, if you see some let me know it (you can open an issue [here](https://github.com/404jv/rentx/issues/new) 😉.
+I’m sure there are some details that Rest has and this API does not follow or even more, some break of the Rest’s rules. That’s because I’m not familiar with it, and my ignorance around this topic doesn’t let me correct it. Of course, I always will correct the mistakes, so, if you see some let me know it (you can open an issue [here](https://github.com/404jv/rentx/issues/new)) 😉.
 
 ## 🔨 Architecture
 First of all, I used Clean Architecture, to learn some architecture that is used in the real world, so I don’t know a lot of architecture yet. However, I will try to explain why is Clean Architecture in this project.
