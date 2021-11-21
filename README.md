@@ -5,9 +5,6 @@ API Restful to rent cars
 ## ❓ Why?
 This project was created during the Rocketseat Bootcamp. Therefore, it’s for my portfolio, so, I really appreciate any feedback that you can give me about the project, code, architecture, design pattern, or anything else that you could report because this makes me a better developer. To help me with that, you can email me: [joaovictorramalho7@gmail.com](mailto:joaovictorramalho7@gmail.com), or connect with me on [LinkedIn](https://www.linkedin.com/in/404jv/), or even open an issue [here](https://github.com/404jv/rentx/issues/new).
 
-## 👀 Observation
-At the moment that I write this project, my current computer can’t run Docker (it’s not that bad, tho). Because of this, I won't be able to use Docker like the project developed in the Bootcamp but I still learning Docker and how it helps us.
-
 ## 🔧 Requirements
 The functions requirements and nonfunctional requirements are on this [file](func.md)
 
@@ -114,34 +111,22 @@ $ CREATE DATABASE rentx;
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "username": "postgres",
-  "password": "123",
+  "username": "docker",
+  "password": "ignite",
   ...
 }
 ```
-
-**Then, open your bash/terminal again and run the migrations**
-```bash
-# if you use yarn
-$ yarn typeorm migration:run
-```
-<p align="center">or<p>
-
-```bash
-# if you use npm
-$ npm run typeorm migration:run
+**Open the file `docker-compose.yml` and change the config as well**
+```yml
+environment:
+  - POSTGRES_USER=docker
+  - POSTGRES_PASSWORD=ignite
+  - POSTGRES_DB=rentx
 ```
 
-**Run project, if you use yarn**
+**Now run docker**
 ```bash
-$ yarn dev
-```
-
-<p align="center">or<p>
-
-**Run project, if you use npm**
-```bash
-$ npm run dev
+$ docker-compose up
 ```
 
 ## 🔷 Database Diagram
