@@ -5,7 +5,6 @@ import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
 
 class CreateCarSpecificationController {
   async handle(request: Request, response: Response): Promise<Response> {
-    // check
     const { id: car_id } = request.params;
     const { specifications_id } = request.body;
 
@@ -13,7 +12,6 @@ class CreateCarSpecificationController {
       CreateCarSpecificationUseCase
     );
 
-    // não aplica
     const car = await createCarSpecificationUseCase.execute({
       car_id,
       specifications_id,
