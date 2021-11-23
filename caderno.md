@@ -1666,3 +1666,31 @@ com essa função podemos usar passando como parâmetro as variáveis que o temp
 ```tsx
 const templateHTML = templateParseFunction(variables);
 ```
+
+> 💡 Pergunta: Qual as configurações necessárias para termos o coverage na nossa aplicação?
+(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Primeiro é necessário ativar essas duas opções no `jest.config.ts`: 
+
+```json
+// Automatically clear mock calls and instances between every test
+clearMocks: true,
+
+// Indicates whether the coverage information should be collected while executing the test
+collectCoverage: true,
+```
+
+Após  isso, precisamos mapear todos os Use Cases da apalicação, que estão localizados dentro da pasta modules. Para passamos na propriedade `collectCoverageFrom` ficando assim:
+
+```json
+collectCoverageFrom: ["<rootDir>/src/modules/**/useCases/**/*.ts"],
+```
+
+Por fim, colocamos uma pasta onde vai ficar os testes no caso podemos colocar como o nome de coverage, caso não exista o jest cria automático:
+
+```json
+// The directory where Jest should output its coverage files
+coverageDirectory: "coverage",
+```
