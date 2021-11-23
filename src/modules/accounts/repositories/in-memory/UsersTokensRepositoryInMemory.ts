@@ -4,7 +4,7 @@ import { UserTokens } from "@modules/accounts/infra/typeorm/entities/UserToken";
 
 import { IUsersTokensRepository } from "../IUsersTokensRepository";
 
-class UsersTokensRepository implements IUsersTokensRepository {
+class UsersTokensRepositoryInMemory implements IUsersTokensRepository {
   private repository: UserTokens[] = [];
 
   async create(data: ICreateUserTokenDTO): Promise<UserTokens> {
@@ -42,4 +42,4 @@ class UsersTokensRepository implements IUsersTokensRepository {
   }
 }
 
-export { UsersTokensRepository };
+export { UsersTokensRepositoryInMemory };
