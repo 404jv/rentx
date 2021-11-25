@@ -124,5 +124,10 @@ environment:
 $ docker-compose up
 ```
 
+**Finally, run the migrations**
+```
+$ yarn typeorm migration:run
+```
+
 ## 🔷 Database Diagram
 <img src="public/diagram.png" />
