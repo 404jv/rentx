@@ -11,6 +11,11 @@ interface IPayload {
   email: string;
 }
 
+interface IResponse {
+  token: string;
+  refresh_token;
+}
+
 @injectable()
 class RefreshTokenUseCase {
   constructor(
@@ -20,7 +25,7 @@ class RefreshTokenUseCase {
     private dateProvider: IDateProvider
   ) {}
 
-  async execute(token: string): Promise<string> {
+  async execute(token: string): Promise<IResponse> {
     if (!token) {
       throw new AppError("Token missing", 401);
     }
@@ -54,7 +59,12 @@ class RefreshTokenUseCase {
       user_id,
     });
 
-    return refresh_token;
+    const newToken = sign({}, auth.secret_token, {
+      subject: user_id,
+      expiresIn: auth.expires_in_token,
+    });
+
+    return { refresh_token, token: newToken };
   }
 
   private createNewRefreshToken(user_id: string, email: string): string {
