@@ -36,9 +36,9 @@ class EtherealMailProvider implements IMailProvider {
   }: ISendEmailDTO): Promise<void> {
     const templateFileContent = fs.readFileSync(path).toString("utf-8");
 
-    const templateParseFunction = handlebars.compile(templateFileContent);
+    const templateParse = handlebars.compile(templateFileContent);
 
-    const templateHTML = templateParseFunction(variables);
+    const templateHTML = templateParse(variables);
 
     const message = await this.client.sendMail({
       to,
@@ -47,8 +47,8 @@ class EtherealMailProvider implements IMailProvider {
       html: templateHTML,
     });
 
-    console.log("Message sent: ", message.messageId);
-    console.log("Preview url: ", nodemailer.getTestMessageUrl(message));
+    console.log("Message sent: %s", message.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(message));
   }
 }
 
