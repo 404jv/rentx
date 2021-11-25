@@ -1694,3 +1694,14 @@ Por fim, colocamos uma pasta onde vai ficar os testes no caso podemos colocar co
 // The directory where Jest should output its coverage files
 coverageDirectory: "coverage",
 ```
+> 💡 Pergunta: Quais os problemas que temos ao armazenarmos os arquivos de upload diretamente no servidor da aplicação? Como resolvemos esses problemas?
+
+Responda aqui
+
+Como a aplicação vai ter cada vez mais uploads conforme o tempo, vai ficando mais difícil de armazenar novos uploads, já que os  `hd's` vão ficando lotados. Pode contornar comprando mais hardware, porém isso vai sair um preço muito alta, desse mode, podemos resolver comprando serviços de storage, isso é, colocamos os arquivos nesses serviços e a nossa aplicação só se preocupa em entrar em contato com esse serviço para pegar os uploads.
+
+> 💡 Sugestão: Faça uma breve documentação sobre o processo de criação e configuração da conta na AWS e do S3.
+
+Responda aqui
+
+Primeiro, é preciso criar um bucket que é um local onde os arquivos serão armazenados, como se fosse a `tmp` porém na AWS. Ao iniciar a criação de um Bucket S3, é importante ressaltar que é necessário fazer as cópias da chave e senha gerados ao criar o Bucket, caso não tenha feito as cópias vai ser preciso gerar uma nova chave.
