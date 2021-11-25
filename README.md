@@ -100,11 +100,6 @@ $ npm install
 $ yarn
 ```
 
-**Open `psql` and create the database**
-```sql
-$ CREATE DATABASE rentx;
-```
-
 **Open the file `ormconfig.json` and change the config for your database**
 ```json
 {
