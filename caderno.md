@@ -1705,3 +1705,60 @@ Como a aplicação vai ter cada vez mais uploads conforme o tempo, vai ficando m
 Responda aqui
 
 Primeiro, é preciso criar um bucket que é um local onde os arquivos serão armazenados, como se fosse a `tmp` porém na AWS. Ao iniciar a criação de um Bucket S3, é importante ressaltar que é necessário fazer as cópias da chave e senha gerados ao criar o Bucket, caso não tenha feito as cópias vai ser preciso gerar uma nova chave.
+
+> 💡 Pergunta: Quais as variáveis ambiente que precisamos adicionar no arquivo `.env` para a `aws-sdk` utilizar? <br/>
+Pergunta: Porque é preciso criar um `StorageProvider`?
+
+Responda aqui
+
+As variáveis são: `AWS_ACCESS_KEY_ID` que é o id do bucket que criamos, `AWS_SECRET_ACCESS_KEY` que é a senha desse bucket, `AWS_BUCKET` é o nome do bucket, essa não é obrigatória, mas ajuda caso seja preciso mudar o bucket um dia.
+
+O `StorageProvider` vai ser a abstração responsável por ter os métodos necessários para manipular os arquivos de upload da aplicação, então, caso alguma funcionalidade (use case) precise de mexer com uploads, como o caso do upload de avatar, esse use case vai entrar em contato com o método `save` e `delete` do `StorageProvider`.
+
+> 💡 Sugestão: Documente as configurações necessárias para poder utilizar a `aws-sdk` e enviar os arquivos.
+(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Primeiro de tudo, é preciso instanciar o client `S3`, para isso podemos fazer:
+
+```tsx
+constructor() {
+  this.client = new S3();
+} 
+```
+
+o `S3` recebe um objeto contendo algumas informações e uma delas é a região, para passar podemos fazer isso:
+
+```tsx
+constructor() {
+  this.client = new S3({
+    region: process.env.AWS_BUCKET_REGION,
+  });
+}
+```
+
+com o client configurado podemos seguir para fazer o upload. O `client` possui um método chamado `putObject`, através desse método que podemos fazer o upload. esse método recebe um objeto de configuração, são elas: `Bucket` que serve para escolher o diretório de pastas, caso alguma pasta não exista será criada ao executar o comando, `Key` é usada para colocar o nome único de uma arquivo, portanto, precisamos criar um id para cada imagem, `ACL` é o tipo de permissão desse arquivo, no caso podemos colocar `"public-read"` para deixar qualquer um ter acesso a mesma, `Body` vai ser o conteúdo do arquivo, podemos passar esse binário através do método `readFile` do `fs`, e por fim, `ContentType`, não é obrigatório passar essa, mas como queremos que seja possível o navegador ler o arquivo e exibir sem a necessidade de fazer o download, então, precisamos passar o tipo da imagem, para isso usamos o método `getType` da lib Mime. Isso tudo em um método `save` fica assim:
+
+```tsx
+async save(file: string, folder: string): Promise<string> {
+    const originalName = resolve(upload.tmpFolder, file);
+
+    const fileContent = await fs.promises.readFile(originalName);
+
+    const contentType = mime.getType(originalName);
+
+    await this.client
+      .putObject({
+        Bucket: `${process.env.AWS_BUCKET}/${folder}`,
+        Key: file,
+        ACL: "public-read",
+        Body: fileContent,
+        ContentType: contentType,
+      })
+      .promise();
+
+    await fs.promises.unlink(originalName);
+    return file;
+  }
+```
