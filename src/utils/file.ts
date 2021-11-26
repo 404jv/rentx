@@ -1,6 +1,6 @@
 import fs from "fs";
 
-async function isFileExists(filename: string): Promise<boolean> {
+export async function isFileExists(filename: string): Promise<boolean> {
   try {
     await fs.promises.stat(filename);
   } catch {
@@ -9,11 +9,3 @@ async function isFileExists(filename: string): Promise<boolean> {
 
   return true;
 }
-
-export const deleteFile = async (filename: string): Promise<void> => {
-  const fileExists = await isFileExists(filename);
-
-  if (fileExists) {
-    await fs.promises.unlink(filename);
-  }
-};
