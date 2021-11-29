@@ -1,7 +1,10 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { IStorageProvider } from "@shared/container/providers/StorageProvider/IStorageProvider";
+import {
+  enFolder,
+  IStorageProvider,
+} from "@shared/container/providers/StorageProvider/IStorageProvider";
 
 interface IRequest {
   user_id: string;
@@ -21,10 +24,10 @@ class UpdateUserAvatarUseCase {
     const user = await this.usersRepository.findById(user_id);
 
     if (user.avatar) {
-      await this.storageProvider.delete(user.avatar, "avatar");
+      await this.storageProvider.delete(user.avatar, enFolder.cars);
     }
 
-    await this.storageProvider.save(avatar, "avatar");
+    await this.storageProvider.save(avatar, enFolder.avatar);
 
     user.avatar = avatar;
 
