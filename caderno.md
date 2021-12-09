@@ -1762,3 +1762,106 @@ async save(file: string, folder: string): Promise<string> {
     return file;
   }
 ```
+
+> 💡 Sugestão: Documente o passo a passo para configurar a instância na AWS.
+
+Responda aqui
+
+Primeiro na seção de EC2 da amazon podemos criar uma instância e selecionar alguma das opções de sistema, no caso o Ubuntu foi selecionada. Após isso, é preciso selecionar o tipo dessa instância, isso é, a quantidade de memória, cpu, desempenho de rede e entre outros. Na próxima etapa é pedido configurações especificas dessa instância, no casso foi deixado como padrão. Depois dessas etapas de configuração de segurança e detalhes da instância. Por fim, vai ser gerado uma chave que é preciso fazer o download dela, no Linux a conexão para essa instância é feita através de um SSH que é pode ser facilmente configurada.
+
+<aside>
+💡 Sugestão: Continue o passo a passo iniciado na aula anterior. No fim, esses dois materiais vão te ajudar a configurar outras instâncias sem ter de retornar as aulas ;)
+
+(Exemplifique com código se achar necessário)
+
+</aside>
+
+Responda aqui
+
+Dentro da instância, podemos criar um usuário chamado `app` assim:
+
+```bash
+$ sudo adduser app
+```
+
+várias perguntas serão feitas, o password é importante ter uma senha forte, e as outras como nome, número e etc... Não são necessárias. Com isso, podemos dar permissão de root para o `app` fazendo isso:
+
+```bash
+$ sudo usermod -aG sudo app
+```
+
+E agora podemos logar como user `app` assim:
+
+```bash
+$ sudo su - app
+```
+
+Para o usuário app ter acesso a nossa instância é preciso configurar uma nova .ssh que vai fazer essa ponte de comunicação. Para isso, criamos uma pasta onde vai ficar todas as nossas ssh:
+
+```bash
+$ mkdir .ssh
+```
+
+Damos permissão 700 para essa pasta que vai permitir o usuário app criar, alterar, ler e excluir arquivos dentro dela:
+
+```bash
+$ chmod 700 .ssh/ 
+```
+
+entramos dentro dessa pasta:
+
+```bash
+$ cd .ssh/
+```
+
+Dentro dela podemos criar um arquivo que vai conter as nossas chaves:
+
+```bash
+$ touch authorized_keys
+```
+
+para gerar essa chave podemos abri um novo bash, agora esse bash está na nossa máquina com o usuário local, no meu caso o usuário é `ezever` e nesse bash rodamos o código:
+
+```bash
+$ ssh-keygen
+```
+
+Ao rodar esse comando é feita diversas perguntas, podemos apenas clicar enter e ir pulando elas. Ao terminar isso, podemos visualizar a chave gerada com o comando:
+
+```bash
+$ cat ~/.ssh/id_rsa.pub
+```
+
+O retorno é algo semelhante a isso:
+
+```bash
+ssh-rsa +dpAB9+VVW5V7jUmFc+wLUweRrvYHU4cdVPJCNFmTe/uXAI+Nuu7S8IsU[...]= USER@USER
+```
+
+Agora, copiamos todo esse código gerado, e voltamos para o bash do app, precisamos colar esse código dentro do arquivos que criamos `authorized_keys` então abrimos com algum editor:
+
+```bash
+$ vi authorized_keys
+```
+
+colamos lá dentro, o arquivo ficando assim:
+
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDzKJ+xPCPOT70sHelLAZFkwKRK+
+Uaov3WeYiCfszMN1wuv0mXvLokahX6bEG7rOMQ8RAVELNnGK1WEfQ0568ndWDcsH7hCreV
+[...]= joao@ezever
+```
+
+Ao salvar e sair do arquivo, pode olhar se está certinho com o cat:
+
+```bash
+$ cat authorized_keys
+```
+
+O retorno tem que ser a chave completa. **Agora sempre que eu quiser logar no meu app através do meu usuário `ezever` apenas rodo isso**:
+
+```bash
+$ ssh app@IP_DA_INSTANCIA
+```
+
+Agora, é preciso fazer as instalação das ferramentas como: Node, Docker, docker-compose e yarn. Isso se encontra da documentação.
