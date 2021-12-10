@@ -1865,3 +1865,9 @@ $ ssh app@IP_DA_INSTANCIA
 ```
 
 Agora, é preciso fazer as instalação das ferramentas como: Node, Docker, docker-compose e yarn. Isso se encontra da documentação.
+
+💡 Pergunta: O que é o [Babel](https://babeljs.io/)? Como ele irá auxiliar no build da aplicação? <br /> (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Babel é o `transpilador` de javascript para typescript, graças a ele que o build de toda a aplicação  acontece de forma rápida e é facilmente configurada.
