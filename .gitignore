@@ -8,4 +8,4 @@ yarn-error.log
 /coverage.data
 coverage
 dist
-.ormconfig
+ormconfig.json
