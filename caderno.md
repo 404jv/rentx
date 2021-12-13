@@ -1871,3 +1871,27 @@ Agora, é preciso fazer as instalação das ferramentas como: Node, Docker, dock
 Responda aqui
 
 Babel é o `transpilador` de javascript para typescript, graças a ele que o build de toda a aplicação  acontece de forma rápida e é facilmente configurada.
+
+> 💡 Pergunta: Quais os comandos que precisamos executar na instância da EC2 para ter permissão para executar o `docker`? <br/> Pergunta: Qual o comando para subir apenas o container do banco de dados?
+
+Responda aqui
+
+Primeiro criamos o grupo chamado docker, assim:
+
+```bash
+$ sudo groupadd docker
+```
+
+caso retorno um erro dizendo que já exista, não tem problema, seguimos. Agora, adicionamos o nome do usuário logado para essa lista, fazendo:
+
+```bash
+$ sudo usermod -aG docker $USER
+```
+
+Após isso re-logamos na instância, e agora temos a permisão.
+
+Para subir apenas o banco:
+
+```bash
+$ docker-compose up -d database
+```
