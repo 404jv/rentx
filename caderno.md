@@ -1907,3 +1907,59 @@ Primeiro refatoramos a conexão com o banco de dados, pois agora o banco vai rod
 Responda aqui
 
 É uma plataforma de CI/CD, usada para facilitar o deploy, consiste em criar um evento, como uma pull request, após esse evento rodar passos que são determinados em um workflow, podem ser rodar os testes, fazer o build da aplicação e entre outros.
+
+> 💡 Pergunta: O que é Proxy Reverso? <br/> Pergunta: Qual o processo para configurar o Proxy Reverso na instância da EC2?
+
+Responda aqui
+
+Proxy Reverso é um servidor que vai ser responsável por receber as requests dos usuários e enviar para o servidor que realmente vai processar essa informação e responder para o Proxy Reverso que por sua vez, vai responder para o usuário.
+
+Primeiro precisamos liberar a porta para o HTTP (80) e HTTPS (443), após isso, baixar o `nginx` na instância e configurar na pasta `sites-available` um arquivo com as configurações necessárias, depois, na pasta `sites-enabled` configurar um link simbólico para o arquivo criado anteriormente. Lembrando de excluir a pasta e o arquivo `default` localizada nos diretórios anteriores, isso é basicamente para exibir um hello world do `ngnix`.
+
+> 💡 Pergunta: Para que serve a lib [pm2](https://pm2.keymetrics.io/) e quais os passos para utilizá-la na instância?
+
+Responda aqui
+
+A lib serve para fazer o gerenciamento da aplicação em produção, então rodar ou derrubar o servidor é feito através do `pm2`. Para usar, primeiro instalamos:
+
+```bash
+$ sudo npm install pm2@latest -g
+```
+
+Para verificar se instalou, rode o comando abaixo:
+
+```bash
+$ pm2
+```
+
+O Resultado tem que ser uma mensagem como essa:
+
+```bash
+-------------
+
+__/\\\\\\\\\\\\\____/\\\\____________/\\\\____/\\\\\\\\\_____
+ _\/\\\/////////\\\_\/\\\\\\________/\\\\\\__/\\\///////\\\___
+  _\/\\\_______\/\\\_\/\\\//\\\____/\\\//\\\_\///______\//\\\__
+   _\/\\\\\\\\\\\\\/__\/\\\\///\\\/\\\/_\/\\\___________/\\\/___
+    _\/\\\/////////____\/\\\__\///\\\/___\/\\\________/\\\//_____
+     _\/\\\_____________\/\\\____\///_____\/\\\_____/\\\//________
+      _\/\\\_____________\/\\\_____________\/\\\___/\\\/___________
+       _\/\\\_____________\/\\\_____________\/\\\__/\\\\\\\\\\\\\\\_
+        _\///______________\///______________\///__\///////////////__
+Runtime Edition
+
+        PM2 is a Production Process Manager for Node.js applications
+                     with a built-in Load Balancer.
+```
+
+agora podemos rodar o servidor usando o `start` e o caminho do server, é importante passar uma  flag chama `--name` passando um nome como `rentx_api` para nas próximas vezes que precisarmos usamos apenas o nome `rentx_api` e não o diretório todo:
+
+```bash
+$ pm2 start dist/shared/infra/http/server.js --name rentx_api
+```
+
+Para parar o server:
+
+```bash
+$ pm2 stop rentx_api
+```
