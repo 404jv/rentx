@@ -1895,3 +1895,15 @@ Para subir apenas o banco:
 ```bash
 $ docker-compose up -d database
 ```
+> 💡 Pergunta: Quais os pontos que precisamos corrigir para utilizar o banco de dados de produção? <br/> (Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Primeiro refatoramos a conexão com o banco de dados, pois agora o banco vai rodar apenas no docker e não mais no local. Após isso, é uma boa prática trocar a porta do banco de dados, pois deixar a padrão acaba não sendo uma boa prática, já que caso fase a nossa instância o banco de dados vai estar em uma porta que não é comum se por. Além disso, criar uma boa senha é importante, então, gerar um código aleatório é uma boa.
+
+
+> 💡 Pergunta: O que são as GitHub Actions?
+
+Responda aqui
+
+É uma plataforma de CI/CD, usada para facilitar o deploy, consiste em criar um evento, como uma pull request, após esse evento rodar passos que são determinados em um workflow, podem ser rodar os testes, fazer o build da aplicação e entre outros.
