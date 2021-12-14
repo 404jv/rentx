@@ -1963,3 +1963,24 @@ Para parar o server:
 ```bash
 $ pm2 stop rentx_api
 ```
+
+> 💡 Sugestão: Documente o processo para configurar a Action de deploy. <br/>(Exemplifique com código se achar necessário)
+
+Responda aqui
+
+Criamos uma parte para atualizar toda aplicação, através da ssh. Basicamente fizemos com que o script entra na pasta do projeto, atualiza dependências ou instala dependências novas, roda as migrations e finalmente reinicia o servidor usando o `pm2`.
+
+```yaml
+ - name: Update API
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/app/rentx
+            yarn
+            ./node_modules/.bin/typeorm migration:run
+            pm2 restart rentx_api
+```
