@@ -100,7 +100,7 @@ $ npm install
 $ yarn
 ```
 
-Clona o arquivo `ormconfig.example.json`
+Copy the file `ormconfig.example.json`
 ```bash
 $ cp ormconfig.example.json ormconfig.json
 ```
@@ -124,7 +124,7 @@ environment:
   - POSTGRES_DB=rentx
 ```
 
-Clona o arquivo `.env.example`
+Copy the file `.env.example`
 ```bash
 $ cp .env.example .env
 ```
