@@ -1984,3 +1984,9 @@ Criamos uma parte para atualizar toda aplicação, através da ssh. Basicamente 
             ./node_modules/.bin/typeorm migration:run
             pm2 restart rentx_api
 ```
+
+> 💡 Sugestão: Explique quais os passos para configurar o domínio e certificado SSL.
+
+Responda aqui
+
+Primeiro instalamos uma ferramenta para isso, como o `CertBot`, também, adicionamos o domino que foi criado na AWS e depois configuramos o `DNS` para o IP que está na AWS, isso tudo pode ser feito pela plataforma onde o domínio foi comprado. Após isso, fazemos toda a parte do `CertBot` e o mesmo vai gerar um código dentro do arquivo que foi criado pelo `nginx` na pasta `sites-enabled`, e temos o https.
