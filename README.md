@@ -100,6 +100,11 @@ $ npm install
 $ yarn
 ```
 
+Clona o arquivo `ormconfig.example.json`
+```bash
+$ cp ormconfig.example.json ormconfig.json
+```
+
 **Open the file `ormconfig.json` and change the config for your database**
 ```json
 {
@@ -117,6 +122,27 @@ environment:
   - POSTGRES_USER=docker
   - POSTGRES_PASSWORD=ignite
   - POSTGRES_DB=rentx
+```
+
+Clona o arquivo `.env.example`
+```bash
+$ cp .env.example .env
+```
+
+Open the `.env`, and set the config
+```
+FORGOT_MAIL_URL=
+
+## AWS credentials
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_BUCKET=
+AWS_BUCKET_REGION=
+AWS_BUCKET_URL=
+
+APP_API_URL=
+
+DISK=local
 ```
 
 **Now run docker**
