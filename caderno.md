@@ -1990,3 +1990,9 @@ Criamos uma parte para atualizar toda aplicação, através da ssh. Basicamente 
 Responda aqui
 
 Primeiro instalamos uma ferramenta para isso, como o `CertBot`, também, adicionamos o domino que foi criado na AWS e depois configuramos o `DNS` para o IP que está na AWS, isso tudo pode ser feito pela plataforma onde o domínio foi comprado. Após isso, fazemos toda a parte do `CertBot` e o mesmo vai gerar um código dentro do arquivo que foi criado pelo `nginx` na pasta `sites-enabled`, e temos o https.
+
+> 💡 Pergunta: Para que serve um Rate Limiter?
+
+Responda aqui
+
+Rate Limiter é usado para evitar ataques `DDOS` que faz várias requests ao server de diferentes ips até o derrubar. Entretanto, ferramentas como Rate Limiter evita isso com o bloqueio temporário de um `ip` caso o mesmo esteja fazendo muitas requests.
