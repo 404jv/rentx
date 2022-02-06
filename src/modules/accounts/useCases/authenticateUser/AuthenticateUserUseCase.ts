@@ -7,6 +7,7 @@ import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepositor
 import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
+import { setRedis } from "@shared/infra/redis";
 
 interface IRequest {
   email: string;
@@ -81,6 +82,12 @@ class AuthenticateUserUseCase {
       },
       refresh_token,
     };
+
+    Object.assign(user, {
+      avatar_url: user.avatar_url(),
+    });
+
+    await setRedis(`user-${user.id}`, JSON.stringify(user));
 
     return tokenReturn;
   }
