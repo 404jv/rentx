@@ -5,6 +5,7 @@ import {
   enFolder,
   IStorageProvider,
 } from "@shared/container/providers/StorageProvider/IStorageProvider";
+import { setRedis } from "@shared/infra/redis";
 
 interface IRequest {
   user_id: string;
@@ -30,6 +31,12 @@ class UpdateUserAvatarUseCase {
     await this.storageProvider.save(avatar, enFolder.avatar);
 
     user.avatar = avatar;
+
+    Object.assign(user, {
+      avatar_url: user.avatar_url(),
+    });
+
+    await setRedis(`user-${user.id}`, JSON.stringify(user));
 
     await this.usersRepository.create(user);
   }
