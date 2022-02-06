@@ -26,7 +26,8 @@
     ],
     "types": [
       "reflect-metadata",
-      "jest"
+      "jest",
+      "node"
     ],
     "esModuleInterop": true,
     "experimentalDecorators": true,
