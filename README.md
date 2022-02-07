@@ -12,8 +12,9 @@ The functions requirements and nonfunctional requirements are on this [file](fun
 Some of my answers to questions are on this [file](caderno.md).
 
 ## 🎖 Extra mile
+- [X] Add [ioredis](https://github.com/luin/ioredis) to cache data.
 - [X] Delete images of a car.
-- [ ] Fix error when create a new car with a non-existent category.
+- [X] Fix error when create a new car with a non-existent category.
 
 ## ⚖ Rest
 The goal of the rest is basic improve some details in a web service. There are a lot of benefits that Rest gives to us, for example, performance and reliability. Performance is one of the factors that make the users use an APP, so, the higher the speed the better, and the reliability is important to the service, since, other applications will consume the API, it’s important that clear communications between them happen.
