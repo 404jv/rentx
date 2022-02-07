@@ -17,11 +17,11 @@ Some of my answers to questions are on this [file](caderno.md).
 - [X] Fix error when create a new car with a non-existent category.
 
 ## ⚖ Rest
-The goal of the rest is basic improve some details in a web service. There are a lot of benefits that Rest gives to us, for example, performance and reliability. Performance is one of the factors that make the users use an APP, so, the higher the speed the better, and the reliability is important to the service, since, other applications will consume the API, it’s important that clear communications between them happen.
+The goal of the rest is basic improve some details in a web service. There are a lot of benefits that Rest gives to us, for example, performance and reliability. Performance is one of the factors that make the users use an APP, so, the higher the speed the better, and the reliability is important to the service, since, other applications will consume the API, clear communications between them must happen.
 
 Now, about this API. It is separated from the client, the API is stateless. Therefore, every request is different from each other, for example, the route `cars/images` needs a bearer token to authenticate, and so if a user does two requests to this route, both requests must have the user’s token. 
 
-The Uniform Interface is applied here, in all the routes, messages, and resources, I tried to make it more clear possible. So, when the token was not sent in a request, the error is `“Token missing”` and the status code is 401, also, some routes are self-explanatory, for example, the route to upload an avatar is `users/avatar`, and the methods HTTP is used to describe the communication as well. The route to list categories (“categories/”) is a GET because I just want to retrieve data about the resource (categories) and the route to create a category is a POST. 
+The Uniform Interface is applied here, in all the routes, messages, and resources, I tried to make it clear possible. So, when the token was not sent in a request, the error is `“Token missing”` and the status code is 401, also, some routes are self-explanatory, for example, the route to upload an avatar is `users/avatar`, and the methods HTTP is used to describe the communication as well. The route to list categories (“categories/”) is a GET because I just want to retrieve data about the resource (categories) and the route to create a category is a POST. 
 
 I’m sure there are some details that Rest has and this API does not follow or even more, some break of the Rest’s rules. That’s because I’m not familiar with it, and my ignorance around this topic doesn’t let me correct it. Of course, I always will correct the mistakes, so, if you see some let me know it (you can open an issue [here](https://github.com/404jv/rentx/issues/new)) 😉.
 
@@ -76,6 +76,46 @@ it must be emphasized that this project does not follow every single detail of t
     └── ...
 
 I think this is better because when I see them I know that those tests are for `CreateCategory`, and If I want to search for a specific test I know that it’s in the same folder as its use case. Furthermore, other details that do not follow exactly the Clean Architecture, but it’s fine because architecture like this is created for a lot of different scenarios, and for some projects, it needs to adapt some things.
+
+
+## 🌵 Cache
+This project is used Redis to set a rate limiter, also to cache data. Some of the routes like the session route set users in Redis: ([AuthenticateUserUseCase](src/modules/accounts/useCases/authenticateUser/AuthenticateUserUseCase.ts))
+```ts
+await setRedis(`user-${user.id}`, JSON.stringify(user));
+```
+
+And others routes use this data to improve the velocity since a connection to the database is really costly. In the route to get user profile is used Redis to get this information: ([ProfileUseCase](src/modules/accounts/useCases/profileUser/ProfileUserUseCase.ts))
+```ts
+...
+class ProfileUserUseCase {
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository
+  ) {}
+
+  async execute(id: string): Promise<IUserResponseDTO> {
+    let user = await this.findUserInCache(id);
+
+    if (!user) {
+      user = await this.usersRepository.findById(id);
+    }
+
+    return UserMapper.toDTO(user);
+  }
+
+  async findUserInCache(id: string): Promise<User> {
+    const userRedis = await getRedis(`user-${id}`);
+
+    return JSON.parse(userRedis as string) as User;
+  }
+}
+...
+```
+In this use case, it’s trying to find the user in the cache and if it does not exist, try to find the user on the database. The difference is 30.128ms (database) VS 3.65ms (Redis), it’s a huge difference and in a production product, this improves the system a lot:
+
+<img src="public/cache.gif" />
+
+However, in some of the use cases are not very recommended to apply cache because the data changes very much and that’s a problem since the copy in cache is going to be out of date soon, and if I store the value but never read it from the cache, then the cache is not helping at all, actually, it’s a problem though because Redis consumes hardware from the server.
 
 ## 🚀 Run project
 
