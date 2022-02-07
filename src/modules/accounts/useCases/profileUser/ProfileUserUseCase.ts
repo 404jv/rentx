@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserResponseDTO } from "@modules/accounts/dtos/IUserResponseDTO";
+import { User } from "@modules/accounts/infra/typeorm/entities/User";
 import { UserMapper } from "@modules/accounts/mappers/UserMapper";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { getRedis } from "@shared/infra/redis";
@@ -13,15 +14,19 @@ class ProfileUserUseCase {
   ) {}
 
   async execute(id: string): Promise<IUserResponseDTO> {
-    const userRedis = await getRedis(`user-${id}`);
-
-    let user = JSON.parse(userRedis as string);
+    let user = await this.findUserInCache(id);
 
     if (!user) {
       user = await this.usersRepository.findById(id);
     }
 
     return UserMapper.toDTO(user);
+  }
+
+  async findUserInCache(id: string): Promise<User> {
+    const userRedis = await getRedis(`user-${id}`);
+
+    return JSON.parse(userRedis as string) as User;
   }
 }
 
