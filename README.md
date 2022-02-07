@@ -79,7 +79,7 @@ I think this is better because when I see them I know that those tests are for `
 
 
 ## 🌵 Cache
-This project is used Redis to set a rate limiter, also to cache data. Some of the routes like the session route set users in Redis: ([AuthenticateUserUseCase](src/modules/accounts/useCases/authenticateUser/AuthenticateUserUseCase.ts))
+I used Redis to set a rate limiter, and also to cache data. Some of the routes like the session route set users in Redis: ([AuthenticateUserUseCase](src/modules/accounts/useCases/authenticateUser/AuthenticateUserUseCase.ts))
 ```ts
 await setRedis(`user-${user.id}`, JSON.stringify(user));
 ```
