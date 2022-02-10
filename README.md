@@ -1,6 +1,6 @@
-# 🚗 Rentx
-API Restful to rent cars
-
+<p align="center">
+  <img src="https://i.imgur.com/oUAKMC5.png" />
+</p>
 
 ## ❓ Why?
 This project was created during the Rocketseat Bootcamp. Therefore, it’s for my portfolio, so, I really appreciate any feedback that you can give me about the project, code, architecture, design pattern, or anything else that you could report because this makes me a better developer. To help me with that, you can email me: [joaovictorramalho7@gmail.com](mailto:joaovictorramalho7@gmail.com), or connect with me on [LinkedIn](https://www.linkedin.com/in/404jv/), or even open an issue [here](https://github.com/404jv/rentx/issues/new).
@@ -12,6 +12,8 @@ The functions requirements and nonfunctional requirements are on this [file](fun
 Some of my answers to questions are on this [file](caderno.md).
 
 ## 🎖 Extra mile
+Extra mile are all the work that I did by myself without a Bootcamp class to explain it.
+
 - [X] Add [ioredis](https://github.com/luin/ioredis) to cache data.
 - [X] Delete images of a car.
 - [X] Fix error when create a new car with a non-existent category.
