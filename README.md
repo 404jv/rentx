@@ -18,6 +18,7 @@ Extra mile are all the work that I did by myself without a Bootcamp class to exp
 - [X] Add [ioredis](https://github.com/luin/ioredis) to cache data.
 - [X] Delete images of a car.
 - [X] Fix error when create a new car with a non-existent category.
+- [ ] Deploy on Heroku
 
 ## ⚖ Rest
 The goal of the rest is basic improve some details in a web service. There are a lot of benefits that Rest gives to us, for example, performance and reliability. Performance is one of the factors that make the users use an APP, so, the higher the speed the better, and the reliability is important to the service, since, other applications will consume the API, clear communications between them must happen.
