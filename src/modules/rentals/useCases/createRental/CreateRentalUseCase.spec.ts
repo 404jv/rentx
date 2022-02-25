@@ -13,7 +13,7 @@ let carsRepositoryInMemory: CarsRepositoryInMemory;
 let dayjsDateProvider: DayjsDateProvider;
 
 describe("Create Rental", () => {
-  const dayAdd24Hours = dayjs().add(1, "day").toDate();
+  const dayAdd48Hours = dayjs().add(2, "day").toDate();
 
   beforeEach(() => {
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
@@ -40,7 +40,7 @@ describe("Create Rental", () => {
     const rental = await createRentalUseCase.execute({
       user_id: "12345",
       car_id: car.id,
-      expected_return_date: dayAdd24Hours,
+      expected_return_date: dayAdd48Hours,
     });
 
     expect(rental).toHaveProperty("id");
@@ -71,14 +71,14 @@ describe("Create Rental", () => {
     await createRentalUseCase.execute({
       user_id: "12345",
       car_id: car.id,
-      expected_return_date: dayAdd24Hours,
+      expected_return_date: dayAdd48Hours,
     });
 
     expect(async () => {
       await createRentalUseCase.execute({
         user_id: "12345",
         car_id: car1.id,
-        expected_return_date: dayAdd24Hours,
+        expected_return_date: dayAdd48Hours,
       });
     }).rejects.toEqual(
       new AppError("There is a rental is progress for this user!")
@@ -99,14 +99,14 @@ describe("Create Rental", () => {
     await createRentalUseCase.execute({
       user_id: "12345",
       car_id: car.id,
-      expected_return_date: dayAdd24Hours,
+      expected_return_date: dayAdd48Hours,
     });
 
     expect(async () => {
       await createRentalUseCase.execute({
         user_id: "321",
         car_id: car.id,
-        expected_return_date: dayAdd24Hours,
+        expected_return_date: dayAdd48Hours,
       });
     }).rejects.toEqual(new AppError("Car is unavailable."));
   });
